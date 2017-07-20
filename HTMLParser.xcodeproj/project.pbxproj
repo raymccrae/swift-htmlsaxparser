@@ -10,6 +10,7 @@
 		4DDF8C2B1F211E2E008C2135 /* HTMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLParser.framework */; };
 		4DDF8C301F211E2E008C2135 /* HTMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */; };
 		4DDF8C321F211E2E008C2135 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDF8C3C1F211F01008C2135 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		4DDF8C2A1F211E2E008C2135 /* HTMLParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParserTests.swift; sourceTree = "<group>"; };
 		4DDF8C311F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				4DDF8C241F211E2E008C2135 /* HTMLParser.h */,
 				4DDF8C251F211E2E008C2135 /* Info.plist */,
+				4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */,
 			);
 			path = HTMLParser;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					4DDF8C201F211E2D008C2135 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 					4DDF8C291F211E2E008C2135 = {
 						CreatedOnToolsVersion = 9.0;
@@ -194,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DDF8C3C1F211F01008C2135 /* HTMLParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +337,7 @@
 		4DDF8C361F211E2E008C2135 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -343,6 +349,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParser;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -351,6 +358,7 @@
 		4DDF8C371F211E2E008C2135 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -370,6 +378,7 @@
 		4DDF8C391F211E2E008C2135 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = HTMLParserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserTests;
@@ -382,6 +391,7 @@
 		4DDF8C3A1F211E2E008C2135 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = HTMLParserTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserTests;
@@ -410,6 +420,7 @@
 				4DDF8C371F211E2E008C2135 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4DDF8C381F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLParserTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +429,7 @@
 				4DDF8C3A1F211E2E008C2135 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
