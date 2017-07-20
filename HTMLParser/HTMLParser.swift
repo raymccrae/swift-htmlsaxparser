@@ -5,17 +5,17 @@
 //  Created by Raymond Mccrae on 20/07/2017.
 //  Copyright © 2017 Raymond Mccrae.
 //
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
 //
-// http://www.apache.org/licenses/LICENSE-2.0
+//  http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 //
 
 import Foundation
@@ -28,6 +28,7 @@ open class HTMLParser {
         let column: Int
     }
     
+    /// A closure that returns the current location during parsing.
     public typealias LocationClosure = () -> Location
     
     public enum Event {
@@ -35,8 +36,8 @@ open class HTMLParser {
         case endDocument(location: LocationClosure)
         case startElement(name: String, attributes: [String: String], location: LocationClosure)
         case endElement(location: LocationClosure)
-        case characters(characters: String, location: LocationClosure)
-        case comment(comment: String, location: LocationClosure)
+        case characters(text: String, location: LocationClosure)
+        case comment(text: String, location: LocationClosure)
         case cdata(block: Data, location: LocationClosure)
         case processingInstruction(target: String, data: String?, location: LocationClosure)
     }
@@ -50,6 +51,20 @@ open class HTMLParser {
     
     public typealias EventHandler = (Event) -> Void
     
+    /**
+     Parse a string containing HTML content, calling the events on the handler
+     supplied. Desite the handler being marked as escaping the parse method will
+     operate synchronously.
+     
+     Note that should your handler require to use the location information, it
+     should invoke the `LocationClosure` within the scope of the event call
+     and not store the `LocationClosure`. You may safely store the returned
+     `Location` struct out with the scope of event call.
+     
+     - Parameter string: The string containing the HTML content.
+     - Parameter handler: The event handler closure that will be called during parsing.
+     - Throws: `HTMLParser.Error` if an error occured during parsing.
+     */
     open func parse(string: String, handler: @escaping EventHandler) throws {
         guard let uft8Data = string.data(using: .utf8) else {
             throw Error.stringEncodingConversion
@@ -58,6 +73,23 @@ open class HTMLParser {
         try parse(data: uft8Data, encoding: .utf8, handler: handler)
     }
     
+    /**
+     Parse a data representation of HTML content, calling the events on the handler
+     supplied. The data will be interpreted using the encoding if supplied. If no
+     encoding is given then the parser will attempt to detect the encoding. Desite
+     the handler being marked as escaping the parse method will operate synchronously.
+     
+     Note that should your handler require to use the location information, it
+     should invoke the `LocationClosure` within the scope of the event call
+     and not store the `LocationClosure`. You may safely store the returned
+     `Location` struct out with the scope of event call.
+     
+     - Parameter data: The data containing the HTML content.
+     - Parameter encoding: The character encoding to interpret the data. If no encoding
+     is given then the parser will attempt to detect the encoding.
+     - Parameter handler: The event handler closure that will be called during parsing.
+     - Throws: `HTMLParser.Error` if an error occured during parsing.
+     */
     open func parse(data: Data, encoding: String.Encoding? = nil, handler: @escaping EventHandler) throws {
         let dataLength = data.count
         
@@ -88,6 +120,12 @@ open class HTMLParser {
             guard let parserContext = htmlCreatePushParserCtxt(&saxHandler, handlerContextPtr, dataBytes, Int32(dataLength), nil, charEncoding) else {
                 throw Error.unknown
             }
+            defer {
+                // Free the parser context when we exit the scope.
+                htmlFreeParserCtxt(parserContext)
+                handlerContext.contextPtr = nil
+            }
+            
             handlerContext.contextPtr = parserContext
             
             htmlCtxtUseOptions(parserContext, Int32(HTML_PARSE_RECOVER.rawValue) | Int32(HTML_PARSE_NONET.rawValue) | Int32(HTML_PARSE_COMPACT.rawValue) | Int32(HTML_PARSE_NOBLANKS.rawValue) | Int32(HTML_PARSE_NOIMPLIED.rawValue))
@@ -96,6 +134,8 @@ open class HTMLParser {
         }
         
     }
+    
+    // MARK: - Implementation
     
     func convert(from swiftEncoding: String.Encoding) -> xmlCharEncoding {
         switch swiftEncoding {
@@ -136,18 +176,7 @@ open class HTMLParser {
     
     private lazy var saxHandler: htmlSAXHandler = {
         var handler = htmlSAXHandler()
-//        handler.internalSubset = nil
-//        handler.isStandalone = nil
-//        handler.hasInternalSubset = nil
-//        handler.hasExternalSubset = nil
-//        handler.resolveEntity = nil
-//        handler.getEntity = nil
-//        handler.entityDecl = nil
-//        handler.notationDecl = nil
-//        handler.attributeDecl = nil
-//        handler.elementDecl = nil
-//        handler.unparsedEntityDecl = nil
-//        handler.setDocumentLocator = nil
+
         handler.startDocument = { (context: UnsafeMutableRawPointer?) in
             guard let context = context else {
                 return
@@ -165,6 +194,7 @@ open class HTMLParser {
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(.endDocument(location: handlerContext.location))
         }
+        
         handler.startElement = { (context: UnsafeMutableRawPointer?,
                                   name: UnsafePointer<UInt8>?,
                                   attrs: UnsafeMutablePointer<UnsafePointer<UInt8>?>?) in
@@ -205,12 +235,29 @@ open class HTMLParser {
                                                  attributes: elementAttributes,
                                                  location: handlerContext.location))
         }
+        
 //        handler.endElement = nil
-//        handler.reference = nil
-//        handler.characters = nil
+
+        handler.characters = { (context, characters, length) in
+            guard let context = context, let characters = characters else {
+                return
+            }
+            
+            // There does not seem to be a good String initializer that takes a
+            // pointer to bytes and a length parameters. Falling back to NSString.
+            guard let characterNSString = NSString(bytes: characters,
+                                             length: Int(length),
+                                             encoding: String.Encoding.utf8.rawValue) else {
+                return
+            }
+            
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            handlerContext.handler(.characters(text: characterNSString as String,
+                                               location: handlerContext.location))
+            
+        }
 //        handler.ignorableWhitespace = nil
         handler.processingInstruction = nil
-//        handler.
         
         return handler
     }()
