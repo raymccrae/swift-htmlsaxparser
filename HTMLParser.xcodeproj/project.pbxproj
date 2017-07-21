@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		4D9BB2251F215C5C0010D5A8 /* HTMLParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLParser+libxml2.swift */; };
+		4D9BB22D1F2160450010D5A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */; };
+		4D9BB22F1F2160450010D5A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22E1F2160450010D5A8 /* ViewController.swift */; };
+		4D9BB2321F2160450010D5A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9BB2301F2160450010D5A8 /* Main.storyboard */; };
+		4D9BB2341F2160450010D5A8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D9BB2331F2160450010D5A8 /* Assets.xcassets */; };
+		4D9BB2371F2160450010D5A8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9BB2351F2160450010D5A8 /* LaunchScreen.storyboard */; };
+		4D9BB23C1F21605E0010D5A8 /* HTMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLParser.framework */; };
+		4D9BB23D1F21605E0010D5A8 /* HTMLParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4DDF8C2B1F211E2E008C2135 /* HTMLParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLParser.framework */; };
 		4DDF8C301F211E2E008C2135 /* HTMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */; };
 		4DDF8C321F211E2E008C2135 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -15,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4D9BB23E1F21605E0010D5A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4DDF8C181F211E2D008C2135 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4DDF8C201F211E2D008C2135;
+			remoteInfo = HTMLParser;
+		};
 		4DDF8C2C1F211E2E008C2135 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4DDF8C181F211E2D008C2135 /* Project object */;
@@ -24,8 +38,29 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4D9BB2401F21605E0010D5A8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D9BB23D1F21605E0010D5A8 /* HTMLParser.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4D9BB2241F215C5C0010D5A8 /* HTMLParser+libxml2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLParser+libxml2.swift"; sourceTree = "<group>"; };
+		4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLParserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4D9BB22E1F2160450010D5A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4D9BB2311F2160450010D5A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D9BB2331F2160450010D5A8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D9BB2361F2160450010D5A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4D9BB2381F2160450010D5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDF8C211F211E2D008C2135 /* HTMLParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C241F211E2E008C2135 /* HTMLParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
 		4DDF8C251F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -36,6 +71,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D9BB2271F2160450010D5A8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D9BB23C1F21605E0010D5A8 /* HTMLParser.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DDF8C1D1F211E2D008C2135 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,11 +97,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D9BB22B1F2160450010D5A8 /* HTMLParserDemo */ = {
+			isa = PBXGroup;
+			children = (
+				4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */,
+				4D9BB22E1F2160450010D5A8 /* ViewController.swift */,
+				4D9BB2301F2160450010D5A8 /* Main.storyboard */,
+				4D9BB2331F2160450010D5A8 /* Assets.xcassets */,
+				4D9BB2351F2160450010D5A8 /* LaunchScreen.storyboard */,
+				4D9BB2381F2160450010D5A8 /* Info.plist */,
+			);
+			path = HTMLParserDemo;
+			sourceTree = "<group>";
+		};
 		4DDF8C171F211E2D008C2135 = {
 			isa = PBXGroup;
 			children = (
 				4DDF8C231F211E2D008C2135 /* HTMLParser */,
 				4DDF8C2E1F211E2E008C2135 /* HTMLParserTests */,
+				4D9BB22B1F2160450010D5A8 /* HTMLParserDemo */,
 				4DDF8C221F211E2D008C2135 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,6 +125,7 @@
 			children = (
 				4DDF8C211F211E2D008C2135 /* HTMLParser.framework */,
 				4DDF8C2A1F211E2E008C2135 /* HTMLParserTests.xctest */,
+				4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,6 +164,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4D9BB2291F2160450010D5A8 /* HTMLParserDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D9BB2391F2160450010D5A8 /* Build configuration list for PBXNativeTarget "HTMLParserDemo" */;
+			buildPhases = (
+				4D9BB2261F2160450010D5A8 /* Sources */,
+				4D9BB2271F2160450010D5A8 /* Frameworks */,
+				4D9BB2281F2160450010D5A8 /* Resources */,
+				4D9BB2401F21605E0010D5A8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D9BB23F1F21605E0010D5A8 /* PBXTargetDependency */,
+			);
+			name = HTMLParserDemo;
+			productName = HTMLParserDemo;
+			productReference = 4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4DDF8C201F211E2D008C2135 /* HTMLParser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLParser" */;
@@ -152,6 +229,9 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Raymond Mccrae";
 				TargetAttributes = {
+					4D9BB2291F2160450010D5A8 = {
+						CreatedOnToolsVersion = 9.0;
+					};
 					4DDF8C201F211E2D008C2135 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
@@ -167,6 +247,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 4DDF8C171F211E2D008C2135;
 			productRefGroup = 4DDF8C221F211E2D008C2135 /* Products */;
@@ -175,11 +256,22 @@
 			targets = (
 				4DDF8C201F211E2D008C2135 /* HTMLParser */,
 				4DDF8C291F211E2E008C2135 /* HTMLParserTests */,
+				4D9BB2291F2160450010D5A8 /* HTMLParserDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D9BB2281F2160450010D5A8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D9BB2371F2160450010D5A8 /* LaunchScreen.storyboard in Resources */,
+				4D9BB2341F2160450010D5A8 /* Assets.xcassets in Resources */,
+				4D9BB2321F2160450010D5A8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DDF8C1F1F211E2D008C2135 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -197,6 +289,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D9BB2261F2160450010D5A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D9BB22F1F2160450010D5A8 /* ViewController.swift in Sources */,
+				4D9BB22D1F2160450010D5A8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DDF8C1C1F211E2D008C2135 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,6 +318,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4D9BB23F1F21605E0010D5A8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4DDF8C201F211E2D008C2135 /* HTMLParser */;
+			targetProxy = 4D9BB23E1F21605E0010D5A8 /* PBXContainerItemProxy */;
+		};
 		4DDF8C2D1F211E2E008C2135 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4DDF8C201F211E2D008C2135 /* HTMLParser */;
@@ -224,7 +330,54 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		4D9BB2301F2160450010D5A8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D9BB2311F2160450010D5A8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4D9BB2351F2160450010D5A8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D9BB2361F2160450010D5A8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		4D9BB23A1F2160450010D5A8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HTMLParserDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D9BB23B1F2160450010D5A8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HTMLParserDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4DDF8C331F211E2E008C2135 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -280,7 +433,6 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -333,7 +485,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -414,6 +565,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D9BB2391F2160450010D5A8 /* Build configuration list for PBXNativeTarget "HTMLParserDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D9BB23A1F2160450010D5A8 /* Debug */,
+				4D9BB23B1F2160450010D5A8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4DDF8C1B1F211E2D008C2135 /* Build configuration list for PBXProject "HTMLParser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

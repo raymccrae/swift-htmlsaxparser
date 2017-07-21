@@ -23,8 +23,8 @@ import Foundation
 open class HTMLParser {
     
     public struct Location {
-        let line: Int
-        let column: Int
+        public let line: Int
+        public let column: Int
     }
     
     /// A closure that returns the current location during parsing.
@@ -49,6 +49,10 @@ open class HTMLParser {
     }
     
     public typealias EventHandler = (Event) -> Void
+    
+    public init() {
+        
+    }
     
     /**
      Parse a string containing HTML content, calling the events on the handler
