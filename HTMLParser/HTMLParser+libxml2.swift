@@ -200,6 +200,17 @@ internal extension HTMLParser {
                                                           data: dataString,
                                                           location: handlerContext.location))
         }
+
+        handler.comment = { (context, comment) in
+            guard let context = context, let comment = comment else {
+                return
+            }
+
+            let commentString = String(cString: comment)
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            handlerContext.handler(.comment(text: commentString,
+                                            location: handlerContext.location))
+        }
         
         return handler
     }
