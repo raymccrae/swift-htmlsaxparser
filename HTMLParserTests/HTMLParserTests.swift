@@ -22,6 +22,66 @@ import XCTest
 @testable import HTMLParser
 
 class HTMLParserTests: XCTestCase {
+
+    func test_parse_data_empty() {
+        let data = Data()
+        var threwError = false
+        do {
+            let parser = HTMLParser()
+            try parser.parse(data: data, handler: { (event) in
+                XCTFail()
+            })
+            XCTFail()
+        }
+        catch HTMLParser.Error.emptyDocument {
+            threwError = true
+        }
+        catch {
+            XCTFail()
+        }
+
+        XCTAssertTrue(threwError)
+    }
+
+    func test_parse_data_nonchar() {
+        let string = "\u{00ef}"
+        var threwError = false
+        do {
+            let parser = HTMLParser()
+            try parser.parse(string: string, handler: { (event) in
+                XCTFail()
+            })
+            XCTFail()
+        }
+        catch HTMLParser.Error.stringEncodingConversion {
+            threwError = true
+        }
+        catch let error {
+            XCTFail("Found \(error)")
+        }
+
+        XCTAssertTrue(threwError)
+    }
+
+    func test_parse_strint_empty() {
+        let string = ""
+        var threwError = false
+        do {
+            let parser = HTMLParser()
+            try parser.parse(string: string, handler: { (event) in
+                XCTFail()
+            })
+            XCTFail()
+        }
+        catch HTMLParser.Error.emptyDocument {
+            threwError = true
+        }
+        catch {
+            XCTFail()
+        }
+
+        XCTAssertTrue(threwError)
+    }
     
     func testExample() {
         // This is an example of a functional test case.
