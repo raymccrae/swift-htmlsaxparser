@@ -9,7 +9,7 @@
 import Foundation
 import libxml2
 
-enum HTMLQuoteCharacter: Character {
+public enum HTMLQuoteCharacter: Character {
     case none = "\0"
     case singleQuote = "'"
     case doubleQuote = "\""
@@ -26,9 +26,9 @@ enum HTMLQuoteCharacter: Character {
     }
 }
 
-extension Data {
+public extension Data {
     
-    func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> Data? {
+    public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> Data? {
         let bufferGrowthFactor = 1.4
         let inputLength = self.count
         var outputLength = Int(Double(inputLength) * bufferGrowthFactor)
@@ -85,8 +85,8 @@ extension Data {
     }
 }
 
-extension String {
-    func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> String? {
+public extension String {
+    public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> String? {
         guard let utf8Data = self.data(using: .utf8) else {
             return nil
         }
