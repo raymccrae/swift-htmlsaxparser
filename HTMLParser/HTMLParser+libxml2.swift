@@ -26,19 +26,18 @@ internal extension HTMLParser {
     func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
         let dataLength = data.count
         var charEncoding: xmlCharEncoding = XML_CHAR_ENCODING_NONE
-        
-        try data.withUnsafeBytes { (dataBytes: UnsafePointer<UInt8>) -> Void in
-            
-            if let encoding = encoding {
-                charEncoding = convert(from: encoding)
-            }
-            else {
+
+        if let encoding = encoding {
+            charEncoding = convert(from: encoding)
+        }
+        else {
+            data.withUnsafeBytes { (dataBytes: UnsafePointer<UInt8>) -> Void in
                 charEncoding = xmlDetectCharEncoding(dataBytes, Int32(dataLength))
             }
-            
-            guard charEncoding != XML_CHAR_ENCODING_NONE && charEncoding != XML_CHAR_ENCODING_ERROR else {
-                throw Error.unsupportedCharEncoding
-            }
+        }
+
+        guard charEncoding != XML_CHAR_ENCODING_NONE && charEncoding != XML_CHAR_ENCODING_ERROR else {
+            throw Error.unsupportedCharEncoding
         }
         
         try data.withUnsafeBytes{ (dataBytes: UnsafePointer<Int8>) -> Void in
@@ -167,17 +166,17 @@ internal extension HTMLParser {
             guard let context = context, let characters = characters else {
                 return
             }
-            
-            // There does not seem to be a good String initializer that takes a
-            // pointer to bytes and a length parameters. Falling back to NSString.
-            guard let characterNSString = NSString(bytes: characters,
-                                                   length: Int(length),
-                                                   encoding: String.Encoding.utf8.rawValue) else {
-                                                    return
+
+            let ptr = UnsafeMutableRawPointer(OpaquePointer(characters))
+            let data = Data(bytesNoCopy: ptr,
+                            count: Int(length),
+                            deallocator: .none)
+            guard let text = String(data: data, encoding: .utf8) else {
+                return
             }
-            
+
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.characters(text: characterNSString as String,
+            handlerContext.handler(.characters(text: text,
                                                location: handlerContext.location))
             
         }
