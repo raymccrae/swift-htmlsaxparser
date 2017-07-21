@@ -180,8 +180,26 @@ internal extension HTMLParser {
                                                location: handlerContext.location))
             
         }
-        //        handler.ignorableWhitespace = nil
-        handler.processingInstruction = nil
+
+        handler.processingInstruction = { (context, target, data) in
+            guard let context = context, let target = target else {
+                return
+            }
+
+            let targetString = String(cString: target)
+            let dataString: String?
+            if let data = data {
+                dataString = String(cString: data)
+            }
+            else {
+                dataString = nil
+            }
+
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            handlerContext.handler(.processingInstruction(target: targetString,
+                                                          data: dataString,
+                                                          location: handlerContext.location))
+        }
         
         return handler
     }
