@@ -160,7 +160,17 @@ internal extension HTMLParser {
                                                  location: handlerContext.location))
         }
         
-        //        handler.endElement = nil
+        handler.endElement = { (context, name) in
+            guard let context = context, let name = name else {
+                return
+            }
+
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let elementName = String(cString: name)
+
+            handlerContext.handler(.endElement(name: elementName,
+                                               location: handlerContext.location))
+        }
         
         handler.characters = { (context, characters, length) in
             guard let context = context, let characters = characters else {

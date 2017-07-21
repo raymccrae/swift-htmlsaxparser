@@ -34,7 +34,7 @@ open class HTMLParser {
         case startDocument(location: LocationClosure)
         case endDocument(location: LocationClosure)
         case startElement(name: String, attributes: [String: String], location: LocationClosure)
-        case endElement(location: LocationClosure)
+        case endElement(name: String, location: LocationClosure)
         case characters(text: String, location: LocationClosure)
         case comment(text: String, location: LocationClosure)
         case cdata(block: Data, location: LocationClosure)
