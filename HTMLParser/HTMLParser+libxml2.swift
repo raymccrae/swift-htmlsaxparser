@@ -54,8 +54,8 @@ internal extension HTMLParser {
             }
             
             handlerContext.contextPtr = parserContext
-            
-            htmlCtxtUseOptions(parserContext, Int32(HTML_PARSE_RECOVER.rawValue) | Int32(HTML_PARSE_NONET.rawValue) | Int32(HTML_PARSE_COMPACT.rawValue) | Int32(HTML_PARSE_NOBLANKS.rawValue) | Int32(HTML_PARSE_NOIMPLIED.rawValue))
+            let options = CInt(parseOptions.rawValue)
+            htmlCtxtUseOptions(parserContext, options)
             
             let _ = htmlParseDocument(parserContext)
         }

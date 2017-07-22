@@ -2,8 +2,8 @@
 //  HTMLParser.swift
 //  HTMLParser
 //
-//  Created by Raymond Mccrae on 20/07/2017.
-//  Copyright © 2017 Raymond Mccrae.
+//  Created by Raymond McCrae on 20/07/2017.
+//  Copyright © 2017 Raymond McCrae.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.
@@ -19,8 +19,30 @@
 //
 
 import Foundation
+import libxml2
 
 open class HTMLParser {
+    
+    public struct ParseOptions: OptionSet {
+        public let rawValue: Int
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        
+        public static let recover = ParseOptions(rawValue: Int(HTML_PARSE_RECOVER.rawValue))
+        public static let noDefaultDTD = ParseOptions(rawValue: Int(HTML_PARSE_NODEFDTD.rawValue))
+        public static let noError = ParseOptions(rawValue: Int(HTML_PARSE_NOERROR.rawValue))
+        public static let noWarning = ParseOptions(rawValue: Int(HTML_PARSE_NOWARNING.rawValue))
+        public static let pedantic = ParseOptions(rawValue: Int(HTML_PARSE_PEDANTIC.rawValue))
+        public static let noBlanks = ParseOptions(rawValue: Int(HTML_PARSE_NOBLANKS.rawValue))
+        public static let noNetwork = ParseOptions(rawValue: Int(HTML_PARSE_NONET.rawValue))
+        public static let noImpliedElements = ParseOptions(rawValue: Int(HTML_PARSE_NOIMPLIED.rawValue))
+        public static let compactTextNodes = ParseOptions(rawValue: Int(HTML_PARSE_COMPACT.rawValue))
+        public static let ignoreEncodingHint = ParseOptions(rawValue: Int(HTML_PARSE_IGNORE_ENC.rawValue))
+        
+        public static let `default`: ParseOptions = [.recover, .noBlanks, .noNetwork, .noImpliedElements, .compactTextNodes]
+    }
     
     public struct Location {
         public let line: Int
@@ -39,6 +61,8 @@ open class HTMLParser {
         case comment(text: String, location: LocationClosure)
         case cdata(block: Data, location: LocationClosure)
         case processingInstruction(target: String, data: String?, location: LocationClosure)
+        case warning(message: String, location: LocationClosure)
+        case error(message: String, location: LocationClosure)
     }
     
     public enum Error: Swift.Error {
@@ -46,12 +70,15 @@ open class HTMLParser {
         case unsupportedCharEncoding
         case stringEncodingConversion
         case emptyDocument
+        case parsingFailure
     }
     
     public typealias EventHandler = (Event) -> Void
     
-    public init() {
-        
+    public let parseOptions: ParseOptions
+    
+    public init(parseOptions: ParseOptions = .`default`) {
+        self.parseOptions = parseOptions
     }
     
     /**

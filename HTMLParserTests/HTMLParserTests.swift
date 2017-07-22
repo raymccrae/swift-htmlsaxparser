@@ -43,26 +43,6 @@ class HTMLParserTests: XCTestCase {
         XCTAssertTrue(threwError)
     }
 
-    func test_parse_data_nonchar() {
-        let string = "\u{00ef}"
-        var threwError = false
-        do {
-            let parser = HTMLParser()
-            try parser.parse(string: string, handler: { (event) in
-                XCTFail()
-            })
-            XCTFail()
-        }
-        catch HTMLParser.Error.stringEncodingConversion {
-            threwError = true
-        }
-        catch let error {
-            XCTFail("Found \(error)")
-        }
-
-        XCTAssertTrue(threwError)
-    }
-
     func test_parse_strint_empty() {
         let string = ""
         var threwError = false
