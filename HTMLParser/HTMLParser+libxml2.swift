@@ -234,9 +234,11 @@ internal extension HTMLParser {
                                           location: handlerContext.location))
         }
         
-        _ = HTMLParser.globalErrorHandler
+        let _ = HTMLParser.globalErrorHandler
+        let _ = HTMLParser.globalWarningHandler
         withUnsafeMutablePointer(to: &handler) { (handlerPtr) in
             htmlparser_set_global_error_handler(handlerPtr)
+            htmlparser_set_global_warning_handler(handlerPtr)
         }
 
         return handler
@@ -254,5 +256,18 @@ internal extension HTMLParser {
                                           location: handlerContext.location))
         }
         return htmlparser_global_error_sax_func
+    }()
+    private static var globalWarningHandler: HTMLParserWrappedWarningSAXFunc = {
+        htmlparser_global_warning_sax_func = { context, message in
+            guard let context = context, let message = message else {
+                return
+            }
+
+            let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            handlerContext.handler(.warning(message: messageString,
+                                            location: handlerContext.location))
+        }
+        return htmlparser_global_warning_sax_func
     }()
 }

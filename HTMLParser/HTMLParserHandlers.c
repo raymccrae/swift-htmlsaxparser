@@ -24,6 +24,7 @@
 #include <libxml/HTMLparser.h>
 
 HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
+HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 
 static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
     va_list vl;
@@ -62,8 +63,51 @@ static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
     }
 }
 
+static void htmlparser_warning_sax_handler(void *ctx, const char *msg, ...) {
+    va_list vl;
+    int consumed = 0;
+    size_t buffer_size = 0;
+    char *buffer = NULL;
+
+    do {
+        if (consumed > buffer_size) {
+            buffer_size = consumed + 1; // Add 1 for the null character
+        }
+        else {
+            buffer_size += 100;
+        }
+        if (buffer == NULL) {
+            buffer = malloc(buffer_size);
+        }
+        else {
+            buffer = realloc(buffer, buffer_size);
+        }
+
+        // Check buffer is not null in case malloc / realloc failed.
+        if (buffer != NULL) {
+            va_start(vl, msg);
+            consumed = vsnprintf(buffer, buffer_size, msg, vl);
+            va_end(vl);
+        }
+    } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
+
+    if (buffer != NULL) {
+        if (consumed > 0 && consumed < buffer_size && htmlparser_global_warning_sax_func != NULL) {
+            htmlparser_global_warning_sax_func(ctx, buffer);
+        }
+
+        free(buffer);
+    }
+}
+
 void htmlparser_set_global_error_handler(void *sax_handler) {
     if (sax_handler != NULL) {
         ((htmlSAXHandlerPtr) sax_handler)->error = htmlparser_error_sax_handler;
+    }
+}
+
+void htmlparser_set_global_warning_handler(void *sax_handler) {
+    if (sax_handler != NULL) {
+        ((htmlSAXHandlerPtr) sax_handler)->warning = htmlparser_warning_sax_handler;
     }
 }

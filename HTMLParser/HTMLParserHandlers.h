@@ -22,9 +22,12 @@
 #define HTMLParserHandlers_h
 
 typedef void(*HTMLParserWrappedErrorSAXFunc)(void *ctx, const char *msg);
+typedef void(*HTMLParserWrappedWarningSAXFunc)(void *ctx, const char *msg);
 
 extern HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
+extern HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 
 void htmlparser_set_global_error_handler(void *sax_handler);
+void htmlparser_set_global_warning_handler(void *sax_handler);
 
 #endif /* HTMLParserHandlers_h */
