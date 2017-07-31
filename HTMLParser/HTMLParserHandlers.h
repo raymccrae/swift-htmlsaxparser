@@ -3,7 +3,7 @@
 //  HTMLParser
 //
 //  Created by Raymond Mccrae on 31/07/2017.
-//  Copyright © 2017 Raymond Mccrae.
+//  Copyright © 2017 Raymond McCrae.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
 //  you may not use this file except in compliance with the License.

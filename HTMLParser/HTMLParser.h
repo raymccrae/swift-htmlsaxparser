@@ -2,7 +2,7 @@
 //  HTMLParser.h
 //  HTMLParser
 //
-//  Created by Raymond Mccrae on 20/07/2017.
+//  Created by Raymond McCrae on 20/07/2017.
 //  Copyright © 2017 Raymond McCrae.
 //
 //  Licensed under the Apache License, Version 2.0 (the "License");
