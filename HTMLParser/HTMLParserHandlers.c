@@ -1,0 +1,64 @@
+//
+//  HTMLParserHandlers.c
+//  HTMLParser
+//
+//  Created by Raymond Mccrae on 31/07/2017.
+//  Copyright © 2017 Raymond McCrae.
+//
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//
+//  http://www.apache.org/licenses/LICENSE-2.0
+//
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
+//
+
+#include <stdio.h>
+#include <stdarg.h>
+#include "HTMLParserHandlers.h"
+#include <libxml/HTMLparser.h>
+
+HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
+
+static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
+    va_list vl;
+    int consumed = 0;
+    size_t buffer_size = 0;
+    char *buffer = NULL;
+
+    va_start(vl, msg);
+    do {
+        buffer_size += 256;
+        if (buffer == NULL) {
+            buffer = malloc(buffer_size);
+        }
+        else {
+            buffer = realloc(buffer, buffer_size);
+        }
+
+        // Check buffer is not null in case malloc / realloc failed.
+        if (buffer != NULL) {
+            consumed = vsnprintf(buffer, buffer_size, msg, vl);
+        }
+    } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
+    va_end(vl);
+
+    if (buffer != NULL) {
+        if (consumed > 0 && consumed < buffer_size && htmlparser_global_error_sax_func != NULL) {
+            htmlparser_global_error_sax_func(ctx, buffer);
+        }
+
+        free(buffer);
+    }
+}
+
+void htmlparser_set_global_error_handler(void *sax_handler) {
+    if (sax_handler != NULL) {
+        ((htmlSAXHandlerPtr) sax_handler)->error = htmlparser_error_sax_handler;
+    }
+}

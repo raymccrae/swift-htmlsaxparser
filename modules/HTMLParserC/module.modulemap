@@ -1,0 +1,4 @@
+module HTMLParserC {
+    header "../../HTMLParser/HTMLParserHandlers.h"
+    export *
+}

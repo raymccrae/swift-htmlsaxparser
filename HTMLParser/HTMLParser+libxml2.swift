@@ -20,6 +20,7 @@
 
 import Foundation
 import libxml2
+import HTMLParserC
 
 internal extension HTMLParser {
     
@@ -233,6 +234,25 @@ internal extension HTMLParser {
                                           location: handlerContext.location))
         }
         
+        _ = HTMLParser.globalErrorHandler
+        withUnsafeMutablePointer(to: &handler) { (handlerPtr) in
+            htmlparser_set_global_error_handler(handlerPtr)
+        }
+
         return handler
     }
+
+    private static var globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
+        htmlparser_global_error_sax_func = {context, message in
+            guard let context = context, let message = message else {
+                return
+            }
+
+            let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            handlerContext.handler(.error(message: messageString,
+                                          location: handlerContext.location))
+        }
+        return htmlparser_global_error_sax_func
+    }()
 }

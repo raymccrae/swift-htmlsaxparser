@@ -92,4 +92,20 @@ class HTMLParserTests: XCTestCase {
         XCTAssertTrue(calledCharacters)
     }
     
+    func testInvalidHTML() {
+        let parser = HTMLParser()
+        do {
+            try parser.parse(string: "<hello<") { (event) in
+                switch event {
+                case let .error(message, location):
+                    print("Error")
+                default:
+                    break
+                }
+            }
+        }
+        catch {
+            
+        }
+    }
 }
