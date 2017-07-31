@@ -31,9 +31,13 @@ static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
     size_t buffer_size = 0;
     char *buffer = NULL;
 
-    va_start(vl, msg);
     do {
-        buffer_size += 256;
+        if (consumed > buffer_size) {
+            buffer_size = consumed + 1; // Add 1 for the null character
+        }
+        else {
+            buffer_size += 100;
+        }
         if (buffer == NULL) {
             buffer = malloc(buffer_size);
         }
@@ -43,10 +47,11 @@ static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
 
         // Check buffer is not null in case malloc / realloc failed.
         if (buffer != NULL) {
+            va_start(vl, msg);
             consumed = vsnprintf(buffer, buffer_size, msg, vl);
+            va_end(vl);
         }
     } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
-    va_end(vl);
 
     if (buffer != NULL) {
         if (consumed > 0 && consumed < buffer_size && htmlparser_global_error_sax_func != NULL) {
