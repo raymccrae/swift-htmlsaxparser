@@ -19,7 +19,7 @@
 //
 
 import UIKit
-import HTMLParser
+import HTMLSAXParser
 
 class ViewController: UIViewController {
 

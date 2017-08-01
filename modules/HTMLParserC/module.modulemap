@@ -1,4 +1,4 @@
 module HTMLParserC {
-    header "../../HTMLParser/HTMLParserHandlers.h"
+    header "../../HTMLSAXParser/HTMLParserHandlers.h"
     export *
 }

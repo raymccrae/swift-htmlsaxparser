@@ -19,7 +19,7 @@
 //
 
 import XCTest
-@testable import HTMLParser
+@testable import HTMLSAXParser
 
 class HTMLEncodeEntitiesTests: XCTestCase {
     
