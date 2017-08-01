@@ -1,6 +1,6 @@
 //
-//  HTMLParser+libxml2.swift
-//  HTMLParser
+//  HTMLSAXParser+libxml2.swift
+//  HTMLSAXParser
 //
 //  Created by Raymond Mccrae on 20/07/2017.
 //  Copyright © 2017 Raymond McCrae.
@@ -22,7 +22,7 @@ import Foundation
 import libxml2
 import HTMLParserC
 
-internal extension HTMLParser {
+internal extension HTMLSAXParser {
     
     func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
         let dataLength = data.count
@@ -234,8 +234,8 @@ internal extension HTMLParser {
                                           location: handlerContext.location))
         }
         
-        let _ = HTMLParser.globalErrorHandler
-        let _ = HTMLParser.globalWarningHandler
+        let _ = HTMLSAXParser.globalErrorHandler
+        let _ = HTMLSAXParser.globalWarningHandler
         withUnsafeMutablePointer(to: &handler) { (handlerPtr) in
             htmlparser_set_global_error_handler(handlerPtr)
             htmlparser_set_global_warning_handler(handlerPtr)

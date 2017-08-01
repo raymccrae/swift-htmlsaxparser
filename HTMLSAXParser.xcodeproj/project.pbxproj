@@ -11,7 +11,7 @@
 		4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
 		4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
-		4D9BB2251F215C5C0010D5A8 /* HTMLParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLParser+libxml2.swift */; };
+		4D9BB2251F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D9BB22D1F2160450010D5A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */; };
 		4D9BB22F1F2160450010D5A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22E1F2160450010D5A8 /* ViewController.swift */; };
 		4D9BB2321F2160450010D5A8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9BB2301F2160450010D5A8 /* Main.storyboard */; };
@@ -21,8 +21,8 @@
 		4D9BB23D1F21605E0010D5A8 /* HTMLSAXParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4DDF8C2B1F211E2E008C2135 /* HTMLSAXParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */; };
 		4DDF8C301F211E2E008C2135 /* HTMLParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */; };
-		4DDF8C321F211E2E008C2135 /* HTMLParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DDF8C3C1F211F01008C2135 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */; };
+		4DDF8C321F211E2E008C2135 /* HTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DDF8C3C1F211F01008C2135 /* HTMLSAXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +61,7 @@
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
-		4D9BB2241F215C5C0010D5A8 /* HTMLParser+libxml2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLParser+libxml2.swift"; sourceTree = "<group>"; };
+		4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLSAXParser+libxml2.swift"; sourceTree = "<group>"; };
 		4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLParserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D9BB22E1F2160450010D5A8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,12 +70,12 @@
 		4D9BB2361F2160450010D5A8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D9BB2381F2160450010D5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4DDF8C241F211E2E008C2135 /* HTMLParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParser.h; sourceTree = "<group>"; };
+		4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLSAXParser.h; sourceTree = "<group>"; };
 		4DDF8C251F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDF8C2A1F211E2E008C2135 /* HTMLSAXParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLSAXParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParserTests.swift; sourceTree = "<group>"; };
 		4DDF8C311F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSAXParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,12 +141,12 @@
 		4DDF8C231F211E2D008C2135 /* HTMLSAXParser */ = {
 			isa = PBXGroup;
 			children = (
-				4DDF8C241F211E2E008C2135 /* HTMLParser.h */,
+				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
 				4DDF8C251F211E2E008C2135 /* Info.plist */,
-				4DDF8C3B1F211F01008C2135 /* HTMLParser.swift */,
+				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
 				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
 				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
-				4D9BB2241F215C5C0010D5A8 /* HTMLParser+libxml2.swift */,
+				4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */,
 				4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */,
 			);
 			path = HTMLSAXParser;
@@ -169,7 +169,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DDF8C321F211E2E008C2135 /* HTMLParser.h in Headers */,
+				4DDF8C321F211E2E008C2135 /* HTMLSAXParser.h in Headers */,
 				4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,9 +316,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */,
-				4D9BB2251F215C5C0010D5A8 /* HTMLParser+libxml2.swift in Sources */,
+				4D9BB2251F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift in Sources */,
 				4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */,
-				4DDF8C3C1F211F01008C2135 /* HTMLParser.swift in Sources */,
+				4DDF8C3C1F211F01008C2135 /* HTMLSAXParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

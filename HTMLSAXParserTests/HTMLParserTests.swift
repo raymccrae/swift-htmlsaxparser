@@ -1,5 +1,5 @@
 //
-//  HTMLParserTests.swift
+//  HTMLSAXParserTests.swift
 //  HTMLParserTests
 //
 //  Created by Raymond Mccrae on 20/07/2017.
@@ -27,13 +27,13 @@ class HTMLParserTests: XCTestCase {
         let data = Data()
         var threwError = false
         do {
-            let parser = HTMLParser()
+            let parser = HTMLSAXParser()
             try parser.parse(data: data, handler: { (event) in
                 XCTFail()
             })
             XCTFail()
         }
-        catch HTMLParser.Error.emptyDocument {
+        catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
         }
         catch {
@@ -47,13 +47,13 @@ class HTMLParserTests: XCTestCase {
         let string = ""
         var threwError = false
         do {
-            let parser = HTMLParser()
+            let parser = HTMLSAXParser()
             try parser.parse(string: string, handler: { (event) in
                 XCTFail()
             })
             XCTFail()
         }
-        catch HTMLParser.Error.emptyDocument {
+        catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
         }
         catch {
@@ -69,7 +69,7 @@ class HTMLParserTests: XCTestCase {
         
         var calledStartElement = false
         var calledCharacters = false
-        let parser = HTMLParser()
+        let parser = HTMLSAXParser()
         do {
             try parser.parse(string: "<hello>こんにちは</hello>") { (event) in
                 switch event {
@@ -93,7 +93,7 @@ class HTMLParserTests: XCTestCase {
     }
     
     func testInvalidHTML() {
-        let parser = HTMLParser()
+        let parser = HTMLSAXParser()
         do {
             try parser.parse(string: "<hello<") { (event) in
                 switch event {

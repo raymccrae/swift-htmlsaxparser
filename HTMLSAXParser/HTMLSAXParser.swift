@@ -1,6 +1,6 @@
 //
-//  HTMLParser.swift
-//  HTMLParser
+//  HTMLSAXParser.swift
+//  HTMLSAXParser
 //
 //  Created by Raymond McCrae on 20/07/2017.
 //  Copyright © 2017 Raymond McCrae.
@@ -21,7 +21,7 @@
 import Foundation
 import libxml2
 
-open class HTMLParser {
+open class HTMLSAXParser {
     
     public struct ParseOptions: OptionSet {
         public let rawValue: Int

@@ -1,6 +1,6 @@
 //
-//  HTMLParser.h
-//  HTMLParser
+//  HTMLSAXParser.h
+//  HTMLSAXParser
 //
 //  Created by Raymond McCrae on 20/07/2017.
 //  Copyright © 2017 Raymond McCrae.
@@ -20,12 +20,12 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for HTMLParser.
-FOUNDATION_EXPORT double HTMLParserVersionNumber;
+//! Project version number for HTMLSAXParser.
+FOUNDATION_EXPORT double HTMLSAXParserVersionNumber;
 
-//! Project version string for HTMLParser.
-FOUNDATION_EXPORT const unsigned char HTMLParserVersionString[];
+//! Project version string for HTMLSAXParser.
+FOUNDATION_EXPORT const unsigned char HTMLSAXParserVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <HTMLParser/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <HTMLSAXParser/PublicHeader.h>
 
 

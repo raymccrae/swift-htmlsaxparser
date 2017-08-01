@@ -1,6 +1,6 @@
 //
-//  HTMLParserHandlers.h
-//  HTMLParser
+//  HTMLSAXParserHandlers.h
+//  HTMLSAXParser
 //
 //  Created by Raymond Mccrae on 31/07/2017.
 //  Copyright © 2017 Raymond McCrae.

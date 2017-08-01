@@ -28,8 +28,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         do {
-            let parser = HTMLParser()
-            try parser.parse(string: "test") { (event) in
+            let parser = HTMLSAXParser()
+            try parser.parse(string: "test") { event in
                 switch (event) {
                 case let .characters(text, locationClosure):
                     let location = locationClosure()
