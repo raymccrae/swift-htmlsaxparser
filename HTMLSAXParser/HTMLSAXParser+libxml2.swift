@@ -70,10 +70,44 @@ internal extension HTMLSAXParser {
             return XML_CHAR_ENCODING_UTF16LE
         case .utf16BigEndian:
             return XML_CHAR_ENCODING_UTF16BE
+        case .utf16:
+            switch UInt32(CFByteOrderGetCurrent()) {
+            case CFByteOrderBigEndian.rawValue:
+                return XML_CHAR_ENCODING_UTF16BE
+
+            case CFByteOrderLittleEndian.rawValue:
+                return XML_CHAR_ENCODING_UTF16LE
+
+            default:
+                return XML_CHAR_ENCODING_NONE
+            }
+        case .utf32LittleEndian:
+            return XML_CHAR_ENCODING_UCS4LE
+        case .utf32BigEndian:
+            return XML_CHAR_ENCODING_UCS4BE
+        case .utf32:
+            switch UInt32(CFByteOrderGetCurrent()) {
+            case CFByteOrderBigEndian.rawValue:
+                return XML_CHAR_ENCODING_UCS4BE
+
+            case CFByteOrderLittleEndian.rawValue:
+                return XML_CHAR_ENCODING_UCS4LE
+
+            default:
+                return XML_CHAR_ENCODING_NONE
+            }
         case .isoLatin1:
             return XML_CHAR_ENCODING_8859_1
         case .isoLatin2:
             return XML_CHAR_ENCODING_8859_2
+        case .japaneseEUC:
+            return XML_CHAR_ENCODING_EUC_JP
+        case .iso2022JP:
+            return XML_CHAR_ENCODING_2022_JP
+        case .shiftJIS:
+            return XML_CHAR_ENCODING_SHIFT_JIS
+        case .ascii:
+            return XML_CHAR_ENCODING_ASCII
             
         default:
             return XML_CHAR_ENCODING_NONE
