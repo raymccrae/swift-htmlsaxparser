@@ -7,10 +7,11 @@ require any additional dependencies. SAX parsers provide an event based parsing 
 where a closure you provide will be called with a series of events as the parser moves
 through the document.
 
-**HTMLSAXParser** uses enums with associated types for the parsing events and a
-simple of example of usage is: -
+**HTMLSAXParser** take inspiration from NSXMLParser however it uses enums with associated
+types for the parsing events, rather than a delegate class. A simple of example of usage
+is: -
 
-```
+```swift
 let parser = HTMLSAXParser()
 do {
 	try parser.parse(string: "<html><body>Some HTML Content</body></html>") { event in
@@ -26,6 +27,30 @@ do {
 }
 catch {
 	// Handle error
+}
+```
+
+This approach lends itself to short inlined processing of HTML without the need for
+a parser delegate class.
+
+```swift
+/**
+ Example function to extract all the image sources from HTML data. Specifically
+ fetching the "src" attribute from all "img" tags.
+*/
+func imageSources(from htmlData: Data) throws -> [String] {
+	var sources: [String] = []
+	let parser = HTMLSAXParser()
+	try parser.parse(data: htmlData) { event in
+		switch event {
+			case let .startElement(name, attributes, _) when name == "img":
+				if let source = attributes["src"] {
+					sources.append(source)
+				}
+			default:
+				break
+		}
+	}
 }
 ```
 
