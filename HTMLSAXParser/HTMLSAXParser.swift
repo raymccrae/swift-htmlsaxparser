@@ -53,7 +53,10 @@ open class HTMLSAXParser {
     public typealias LocationClosure = () -> Location
     
     public enum Event {
+        /// Event parser found the start of the document.
         case startDocument(location: LocationClosure)
+
+        /// Event parser found the end of the document.
         case endDocument(location: LocationClosure)
         case startElement(name: String, attributes: [String: String], location: LocationClosure)
         case endElement(name: String, location: LocationClosure)
@@ -74,7 +77,8 @@ open class HTMLSAXParser {
     }
     
     public typealias EventHandler = (Event) -> Void
-    
+
+    /// The parse options the html parser was initialised with.
     public let parseOptions: ParseOptions
     
     public init(parseOptions: ParseOptions = .`default`) {
