@@ -11,6 +11,8 @@
 		4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
 		4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
+		4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286BA1F3516E6001A16FC /* test_uft8.html */; };
+		4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286B91F3516E6001A16FC /* test_uft16le.html */; };
 		4D9BB2251F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D9BB22D1F2160450010D5A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */; };
 		4D9BB22F1F2160450010D5A8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB22E1F2160450010D5A8 /* ViewController.swift */; };
@@ -61,6 +63,8 @@
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
+		4D9286B91F3516E6001A16FC /* test_uft16le.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft16le.html; path = HTMLSAXParserTests/testdata/test_uft16le.html; sourceTree = SOURCE_ROOT; };
+		4D9286BA1F3516E6001A16FC /* test_uft8.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft8.html; path = HTMLSAXParserTests/testdata/test_uft8.html; sourceTree = SOURCE_ROOT; };
 		4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLSAXParser+libxml2.swift"; sourceTree = "<group>"; };
 		4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HTMLParserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9BB22C1F2160450010D5A8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +109,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D9286B81F3516C3001A16FC /* testdata */ = {
+			isa = PBXGroup;
+			children = (
+				4D9286BA1F3516E6001A16FC /* test_uft8.html */,
+				4D9286B91F3516E6001A16FC /* test_uft16le.html */,
+			);
+			name = testdata;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		4D9BB22B1F2160450010D5A8 /* HTMLParserDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +169,7 @@
 		4DDF8C2E1F211E2E008C2135 /* HTMLSAXParserTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D9286B81F3516C3001A16FC /* testdata */,
 				4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */,
 				4DDF8C311F211E2E008C2135 /* Info.plist */,
 				4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */,
@@ -296,6 +311,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */,
+				4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
