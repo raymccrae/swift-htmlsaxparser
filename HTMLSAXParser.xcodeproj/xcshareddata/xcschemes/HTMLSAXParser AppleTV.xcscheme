@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D7F1D9C1F3EEC790080660A"
-               BuildableName = "HTMLSAXParser_AppleTV.framework"
+               BuildableName = "HTMLSAXParser.framework"
                BlueprintName = "HTMLSAXParser AppleTV"
                ReferencedContainer = "container:HTMLSAXParser.xcodeproj">
             </BuildableReference>
@@ -48,7 +48,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D7F1D9C1F3EEC790080660A"
-            BuildableName = "HTMLSAXParser_AppleTV.framework"
+            BuildableName = "HTMLSAXParser.framework"
             BlueprintName = "HTMLSAXParser AppleTV"
             ReferencedContainer = "container:HTMLSAXParser.xcodeproj">
          </BuildableReference>
@@ -66,7 +66,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D7F1D9C1F3EEC790080660A"
-            BuildableName = "HTMLSAXParser_AppleTV.framework"
+            BuildableName = "HTMLSAXParser.framework"
             BlueprintName = "HTMLSAXParser AppleTV"
             ReferencedContainer = "container:HTMLSAXParser.xcodeproj">
          </BuildableReference>
