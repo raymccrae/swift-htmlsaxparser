@@ -1,5 +1,5 @@
-module libxml2 {
-    header "libxml2.h"
+module libxml2 [system] {
+    umbrella header "libxml2.h"
     link "xml2"
     export *
 }

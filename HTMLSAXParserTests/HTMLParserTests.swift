@@ -38,7 +38,7 @@ class HTMLParserTests: XCTestCase {
         var threwError = false
         do {
             let parser = HTMLSAXParser()
-            try parser.parse(data: data, handler: { (event) in
+            try parser.parse(data: data, handler: { (context, event) in
                 XCTFail()
             })
             XCTFail()
@@ -58,7 +58,7 @@ class HTMLParserTests: XCTestCase {
         var threwError = false
         do {
             let parser = HTMLSAXParser()
-            try parser.parse(string: string, handler: { (event) in
+            try parser.parse(string: string, handler: { (context, event) in
                 XCTFail()
             })
             XCTFail()
@@ -81,12 +81,12 @@ class HTMLParserTests: XCTestCase {
         var calledCharacters = false
         let parser = HTMLSAXParser()
         do {
-            try parser.parse(string: "<hello>こんにちは</hello>") { (event) in
+            try parser.parse(string: "<hello>こんにちは</hello>") { (context, event) in
                 switch event {
-                case let .startElement(name, _, _):
+                case let .startElement(name, _):
                     XCTAssertEqual(name, "hello")
                     calledStartElement = true
-                case let .characters(text, _):
+                case let .characters(text):
                     XCTAssertEqual(text, "こんにちは")
                     calledCharacters = true
                 default:
@@ -105,9 +105,9 @@ class HTMLParserTests: XCTestCase {
     func testInvalidHTML() {
         let parser = HTMLSAXParser()
         do {
-            try parser.parse(string: "<hello<") { (event) in
+            try parser.parse(string: "<hello<") { (context, event) in
                 switch event {
-                case let .error(message, location):
+                case let .error(message):
                     print("Error")
                 default:
                     break
@@ -122,9 +122,9 @@ class HTMLParserTests: XCTestCase {
     func imageSources(from htmlData: Data) throws -> [String] {
         var sources: [String] = []
         let parser = HTMLSAXParser()
-        try parser.parse(data: htmlData) { event in
+        try parser.parse(data: htmlData) { context, event in
             switch event {
-            case let .startElement(name, attributes, _) where name == "img":
+            case let .startElement(name, attributes) where name == "img":
             if let source = attributes["src"] {
                 sources.append(source)
                 }

@@ -28,11 +28,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         do {
+            print("hello & goodbye".encodeHTMLEntities()!)
             let parser = HTMLSAXParser()
-            try parser.parse(string: "test") { event in
+            try parser.parse(string: "test") { context, event in
                 switch (event) {
-                case let .characters(text, locationClosure):
-                    let location = locationClosure()
+                case let .characters(text):
+                    let location = context.location
                     print("Found \(text) at \(location.column)")
                     
                 default:

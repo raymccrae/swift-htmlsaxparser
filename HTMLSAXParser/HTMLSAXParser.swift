@@ -21,6 +21,22 @@
 import Foundation
 import libxml2
 
+public protocol HTMLSAXParseContext {
+
+    /// The current parsing location during the parsing process.
+    var location: HTMLSAXParser.Location { get }
+    var systemId: String? { get }
+    var publicId: String? { get }
+
+    /**
+     Aborts the current HTML parsings to prevent further calls
+     to the parser event handler.
+     */
+    func abortParsing()
+
+}
+
+
 open class HTMLSAXParser {
     
     public struct ParseOptions: OptionSet {
@@ -40,7 +56,8 @@ open class HTMLSAXParser {
         public static let noImpliedElements = ParseOptions(rawValue: Int(HTML_PARSE_NOIMPLIED.rawValue))
         public static let compactTextNodes = ParseOptions(rawValue: Int(HTML_PARSE_COMPACT.rawValue))
         public static let ignoreEncodingHint = ParseOptions(rawValue: Int(HTML_PARSE_IGNORE_ENC.rawValue))
-        
+
+        /// Default set of parse options.
         public static let `default`: ParseOptions = [.recover, .noBlanks, .noNetwork, .noImpliedElements, .compactTextNodes]
     }
     
@@ -49,25 +66,38 @@ open class HTMLSAXParser {
         public let column: Int
     }
     
-    /// A closure that returns the current location during parsing.
-    public typealias LocationClosure = () -> Location
-    
     public enum Event {
         /// Event parser found the start of the document.
-        case startDocument(location: LocationClosure)
+        case startDocument
 
         /// Event parser found the end of the document.
-        case endDocument(location: LocationClosure)
-        case startElement(name: String, attributes: [String: String], location: LocationClosure)
-        case endElement(name: String, location: LocationClosure)
-        case characters(text: String, location: LocationClosure)
-        case comment(text: String, location: LocationClosure)
-        case cdata(block: Data, location: LocationClosure)
-        case processingInstruction(target: String, data: String?, location: LocationClosure)
-        case warning(message: String, location: LocationClosure)
-        case error(message: String, location: LocationClosure)
+        case endDocument
+
+        /// Event parser found an opening html tag.
+        case startElement(name: String, attributes: [String: String])
+
+        /// Event parser found an ending html tag.
+        case endElement(name: String)
+
+        /// Event parser found character nodes.
+        case characters(text: String)
+
+        /// Event parser found a comment node.
+        case comment(text: String)
+
+        /// Event parser found a CDATA block.
+        case cdata(block: Data)
+
+        /// Event parser found a processing instruction.
+        case processingInstruction(target: String, data: String?)
+
+        /// Event parser generated a warning during parsing.
+        case warning(message: String)
+
+        /// Event parser generated an error during parsing.
+        case error(message: String)
     }
-    
+
     public enum Error: Swift.Error {
         case unknown
         case unsupportedCharEncoding
@@ -76,7 +106,7 @@ open class HTMLSAXParser {
         case parsingFailure
     }
     
-    public typealias EventHandler = (Event) -> Void
+    public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
 
     /// The parse options the html parser was initialised with.
     public let parseOptions: ParseOptions

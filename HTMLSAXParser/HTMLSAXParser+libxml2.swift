@@ -58,7 +58,11 @@ internal extension HTMLSAXParser {
             let options = CInt(parseOptions.rawValue)
             htmlCtxtUseOptions(parserContext, options)
             
-            let _ = htmlParseDocument(parserContext)
+            let parseSuccess = htmlParseDocument(parserContext) != 0
+            if !parseSuccess {
+                throw Error.parsingFailure
+            }
+
         }
     }
     
@@ -114,7 +118,8 @@ internal extension HTMLSAXParser {
         }
     }
     
-    private class HandlerContext {
+    private class HandlerContext: HTMLSAXParseContext {
+
         let handler: EventHandler
         var contextPtr: htmlParserCtxtPtr?
         
@@ -122,7 +127,7 @@ internal extension HTMLSAXParser {
             self.handler = handler
         }
         
-        func location() -> Location {
+        var location: Location {
             guard let contextPtr = contextPtr else {
                 return Location(line: 0, column: 0)
             }
@@ -130,6 +135,35 @@ internal extension HTMLSAXParser {
             let columnNumber = Int(xmlSAX2GetColumnNumber(contextPtr))
             let loc = Location(line: lineNumber, column: columnNumber)
             return loc
+        }
+
+        var systemId: String? {
+            guard let contextPtr = contextPtr else {
+                return nil
+            }
+            guard let systemId = xmlSAX2GetSystemId(contextPtr) else {
+                return nil
+            }
+            return String(cString: systemId)
+        }
+
+        var publicId: String? {
+            guard let contextPtr = contextPtr else {
+                return nil
+            }
+            guard let publicId = xmlSAX2GetPublicId(contextPtr) else {
+                return nil
+            }
+            return String(cString: publicId)
+
+        }
+
+        func abortParsing() {
+            guard let contextPtr = contextPtr else {
+                return
+            }
+
+            xmlStopParser(contextPtr)
         }
     }
     
@@ -142,7 +176,7 @@ internal extension HTMLSAXParser {
             }
             
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.startDocument(location: handlerContext.location))
+            handlerContext.handler(handlerContext, .startDocument)
         }
         
         handler.endDocument = { (context: UnsafeMutableRawPointer?) in
@@ -151,7 +185,7 @@ internal extension HTMLSAXParser {
             }
             
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.endDocument(location: handlerContext.location))
+            handlerContext.handler(handlerContext, .endDocument)
         }
         
         handler.startElement = { (context: UnsafeMutableRawPointer?,
@@ -190,9 +224,9 @@ internal extension HTMLSAXParser {
                 }
             }
             
-            handlerContext.handler(.startElement(name: elementName,
-                                                 attributes: elementAttributes,
-                                                 location: handlerContext.location))
+            handlerContext.handler(handlerContext,
+                                   .startElement(name: elementName,
+                                                 attributes: elementAttributes))
         }
         
         handler.endElement = { (context, name) in
@@ -203,8 +237,7 @@ internal extension HTMLSAXParser {
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             let elementName = String(cString: name)
 
-            handlerContext.handler(.endElement(name: elementName,
-                                               location: handlerContext.location))
+            handlerContext.handler(handlerContext, .endElement(name: elementName))
         }
         
         handler.characters = { (context, characters, length) in
@@ -221,8 +254,7 @@ internal extension HTMLSAXParser {
             }
 
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.characters(text: text,
-                                               location: handlerContext.location))
+            handlerContext.handler(handlerContext, .characters(text: text))
             
         }
 
@@ -241,9 +273,9 @@ internal extension HTMLSAXParser {
             }
 
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.processingInstruction(target: targetString,
-                                                          data: dataString,
-                                                          location: handlerContext.location))
+            handlerContext.handler(handlerContext,
+                                   .processingInstruction(target: targetString,
+                                                          data: dataString))
         }
 
         handler.comment = { (context, comment) in
@@ -253,8 +285,7 @@ internal extension HTMLSAXParser {
 
             let commentString = String(cString: comment)
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.comment(text: commentString,
-                                            location: handlerContext.location))
+            handlerContext.handler(handlerContext, .comment(text: commentString))
         }
 
         handler.cdataBlock = { (context, block, length) in
@@ -264,8 +295,7 @@ internal extension HTMLSAXParser {
 
             let dataBlock = Data(bytes: block, count: Int(length))
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.cdata(block: dataBlock,
-                                          location: handlerContext.location))
+            handlerContext.handler(handlerContext, .cdata(block: dataBlock))
         }
         
         let _ = HTMLSAXParser.globalErrorHandler
@@ -286,8 +316,7 @@ internal extension HTMLSAXParser {
 
             let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.error(message: messageString,
-                                          location: handlerContext.location))
+            handlerContext.handler(handlerContext, .error(message: messageString))
         }
         return htmlparser_global_error_sax_func
     }()
@@ -299,8 +328,7 @@ internal extension HTMLSAXParser {
 
             let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
-            handlerContext.handler(.warning(message: messageString,
-                                            location: handlerContext.location))
+            handlerContext.handler(handlerContext, .warning(message: messageString))
         }
         return htmlparser_global_warning_sax_func
     }()
