@@ -15,6 +15,12 @@
 		4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
 		4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
+		4D7F1DA51F3EED470080660A /* HTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D7F1DA71F3EED5B0080660A /* HTMLSAXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */; };
+		4D7F1DA81F3EED5E0080660A /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
+		4D7F1DA91F3EED640080660A /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
+		4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
+		4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286BA1F3516E6001A16FC /* test_uft8.html */; };
 		4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286B91F3516E6001A16FC /* test_uft16le.html */; };
@@ -69,6 +75,8 @@
 		4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_MacOS.plist; sourceTree = "<group>"; };
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
+		4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D7F1DA61F3EED560080660A /* Info_AppleTV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_AppleTV.plist; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
 		4D9286B91F3516E6001A16FC /* test_uft16le.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft16le.html; path = HTMLSAXParserTests/testdata/test_uft16le.html; sourceTree = SOURCE_ROOT; };
 		4D9286BA1F3516E6001A16FC /* test_uft8.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft8.html; path = HTMLSAXParserTests/testdata/test_uft8.html; sourceTree = SOURCE_ROOT; };
@@ -91,6 +99,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		4D3D6DA51F3EDEDA00EE40CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D7F1D991F3EEC790080660A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -163,6 +178,7 @@
 				4DDF8C2A1F211E2E008C2135 /* HTMLSAXParserTests.xctest */,
 				4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */,
 				4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */,
+				4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,6 +189,7 @@
 				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
 				4DDF8C251F211E2E008C2135 /* Info_iOS.plist */,
 				4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */,
+				4D7F1DA61F3EED560080660A /* Info_AppleTV.plist */,
 				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
 				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
 				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
@@ -204,6 +221,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4D7F1D9A1F3EEC790080660A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D7F1DA51F3EED470080660A /* HTMLSAXParser.h in Headers */,
+				4D7F1DA81F3EED5E0080660A /* HTMLParserHandlers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DDF8C1E1F211E2D008C2135 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +258,24 @@
 			name = "HTMLSAXParser MacOS";
 			productName = "HTMLSAXParser MacOS";
 			productReference = 4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4D7F1D9C1F3EEC790080660A /* HTMLSAXParser AppleTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D7F1DA21F3EEC790080660A /* Build configuration list for PBXNativeTarget "HTMLSAXParser AppleTV" */;
+			buildPhases = (
+				4D7F1D981F3EEC790080660A /* Sources */,
+				4D7F1D991F3EEC790080660A /* Frameworks */,
+				4D7F1D9A1F3EEC790080660A /* Headers */,
+				4D7F1D9B1F3EEC790080660A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HTMLSAXParser AppleTV";
+			productName = HTMLSAXParser;
+			productReference = 4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		4D9BB2291F2160450010D5A8 /* HTMLParserDemo */ = {
@@ -302,6 +346,9 @@
 					4D3D6DA81F3EDEDA00EE40CB = {
 						CreatedOnToolsVersion = 9.0;
 					};
+					4D7F1D9C1F3EEC790080660A = {
+						CreatedOnToolsVersion = 9.0;
+					};
 					4D9BB2291F2160450010D5A8 = {
 						CreatedOnToolsVersion = 9.0;
 					};
@@ -329,6 +376,7 @@
 			targets = (
 				4DDF8C201F211E2D008C2135 /* HTMLSAXParser iOS */,
 				4D3D6DA81F3EDEDA00EE40CB /* HTMLSAXParser MacOS */,
+				4D7F1D9C1F3EEC790080660A /* HTMLSAXParser AppleTV */,
 				4DDF8C291F211E2E008C2135 /* HTMLSAXParserTests */,
 				4D9BB2291F2160450010D5A8 /* HTMLParserDemo */,
 			);
@@ -337,6 +385,13 @@
 
 /* Begin PBXResourcesBuildPhase section */
 		4D3D6DA71F3EDEDA00EE40CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D7F1D9B1F3EEC790080660A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -380,6 +435,17 @@
 				4D3D6DB11F3EDEFA00EE40CB /* HTMLSAXParser.swift in Sources */,
 				4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */,
 				4D3D6DB41F3EDF0800EE40CB /* HTMLSAXParser+libxml2.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D7F1D981F3EEC790080660A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D7F1DA91F3EED640080660A /* HTMLParserHandlers.c in Sources */,
+				4D7F1DA71F3EED5B0080660A /* HTMLSAXParser.swift in Sources */,
+				4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */,
+				4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +558,52 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		4D7F1DA31F3EEC790080660A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = HTMLSAXParser/Info_AppleTV.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
+				PRODUCT_NAME = HTMLSAXParser;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		4D7F1DA41F3EEC790080660A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = HTMLSAXParser/Info_AppleTV.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
+				PRODUCT_NAME = HTMLSAXParser;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -721,6 +833,15 @@
 			buildConfigurations = (
 				4D3D6DAF1F3EDEDA00EE40CB /* Debug */,
 				4D3D6DB01F3EDEDA00EE40CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D7F1DA21F3EEC790080660A /* Build configuration list for PBXNativeTarget "HTMLSAXParser AppleTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D7F1DA31F3EEC790080660A /* Debug */,
+				4D7F1DA41F3EEC790080660A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
