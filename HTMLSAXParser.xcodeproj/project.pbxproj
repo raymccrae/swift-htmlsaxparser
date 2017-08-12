@@ -21,6 +21,7 @@
 		4D7F1DA91F3EED640080660A /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
 		4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
+		4D7F1DAD1F3EF59D0080660A /* article_with_images.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D7F1DAC1F3EF5540080660A /* article_with_images.html */; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286BA1F3516E6001A16FC /* test_uft8.html */; };
 		4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286B91F3516E6001A16FC /* test_uft16le.html */; };
@@ -77,6 +78,7 @@
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D7F1DA61F3EED560080660A /* Info_AppleTV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_AppleTV.plist; sourceTree = "<group>"; };
+		4D7F1DAC1F3EF5540080660A /* article_with_images.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = article_with_images.html; path = HTMLSAXParserTests/testdata/article_with_images.html; sourceTree = SOURCE_ROOT; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
 		4D9286B91F3516E6001A16FC /* test_uft16le.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft16le.html; path = HTMLSAXParserTests/testdata/test_uft16le.html; sourceTree = SOURCE_ROOT; };
 		4D9286BA1F3516E6001A16FC /* test_uft8.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft8.html; path = HTMLSAXParserTests/testdata/test_uft8.html; sourceTree = SOURCE_ROOT; };
@@ -143,6 +145,7 @@
 			children = (
 				4D9286BA1F3516E6001A16FC /* test_uft8.html */,
 				4D9286B91F3516E6001A16FC /* test_uft16le.html */,
+				4D7F1DAC1F3EF5540080660A /* article_with_images.html */,
 			);
 			name = testdata;
 			path = "New Group";
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */,
+				4D7F1DAD1F3EF59D0080660A /* article_with_images.html in Resources */,
 				4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

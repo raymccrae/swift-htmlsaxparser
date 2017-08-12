@@ -37,7 +37,7 @@ internal extension HTMLSAXParser {
             }
         }
 
-        guard charEncoding != XML_CHAR_ENCODING_NONE && charEncoding != XML_CHAR_ENCODING_ERROR else {
+        guard charEncoding != XML_CHAR_ENCODING_ERROR else {
             throw Error.unsupportedCharEncoding
         }
         
