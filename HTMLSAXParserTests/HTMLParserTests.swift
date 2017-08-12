@@ -23,6 +23,16 @@ import XCTest
 
 class HTMLParserTests: XCTestCase {
 
+    fileprivate static let bundle: Bundle = Bundle.init(for: HTMLParserTests.self)
+    fileprivate static let testHTMLDocumentUTF8: Data = loadHTMLDocumentData(named: "test_uft16le")
+    fileprivate static let testHTMLArticleWithImages: Data = loadHTMLDocumentData(named: "article_with_images")
+
+    static func loadHTMLDocumentData(named: String) -> Data {
+        let docuemntURL = bundle.url(forResource: named, withExtension: "html")!
+        let documentData = try! Data(contentsOf: docuemntURL)
+        return documentData
+    }
+
     func test_parse_data_empty() {
         let data = Data()
         var threwError = false
@@ -108,4 +118,29 @@ class HTMLParserTests: XCTestCase {
             
         }
     }
+
+    func imageSources(from htmlData: Data) throws -> [String] {
+        var sources: [String] = []
+        let parser = HTMLSAXParser()
+        try parser.parse(data: htmlData) { event in
+            switch event {
+            case let .startElement(name, attributes, _) where name == "img":
+            if let source = attributes["src"] {
+                sources.append(source)
+                }
+            default:
+                break
+            }
+        }
+        return sources
+    }
+
+    func testImageExtraction() {
+        let imageSources = try! self.imageSources(from: HTMLParserTests.testHTMLArticleWithImages)
+        XCTAssertEqual(imageSources, [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG/640px-01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Brachypelma_smithi_2009_G03.jpg/640px-Brachypelma_smithi_2009_G03.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/d/d7/Panamanian_night_monkey.jpg"])
+    }
+
 }

@@ -43,7 +43,7 @@ func imageSources(from htmlData: Data) throws -> [String] {
 	let parser = HTMLSAXParser()
 	try parser.parse(data: htmlData) { event in
 		switch event {
-			case let .startElement(name, attributes, _) when name == "img":
+			case let .startElement(name, attributes, _) where name == "img":
 				if let source = attributes["src"] {
 					sources.append(source)
 				}
@@ -51,6 +51,7 @@ func imageSources(from htmlData: Data) throws -> [String] {
 				break
 		}
 	}
+	return sources
 }
 ```
 
