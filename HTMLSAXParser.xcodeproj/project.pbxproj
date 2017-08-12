@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4D161F411F228123002573EF /* HTMLEncodeEntitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */; };
+		4D3D6DB11F3EDEFA00EE40CB /* HTMLSAXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */; };
+		4D3D6DB21F3EDF0100EE40CB /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
+		4D3D6DB31F3EDF0500EE40CB /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
+		4D3D6DB41F3EDF0800EE40CB /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
+		4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
 		4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
@@ -60,6 +65,8 @@
 
 /* Begin PBXFileReference section */
 		4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLEncodeEntitiesTests.swift; sourceTree = "<group>"; };
+		4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_MacOS.plist; sourceTree = "<group>"; };
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
@@ -75,7 +82,7 @@
 		4D9BB2381F2160450010D5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLSAXParser.h; sourceTree = "<group>"; };
-		4DDF8C251F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DDF8C251F211E2E008C2135 /* Info_iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_iOS.plist; sourceTree = "<group>"; };
 		4DDF8C2A1F211E2E008C2135 /* HTMLSAXParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLSAXParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParserTests.swift; sourceTree = "<group>"; };
 		4DDF8C311F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,6 +90,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D3D6DA51F3EDEDA00EE40CB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9BB2271F2160450010D5A8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -148,6 +162,7 @@
 				4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */,
 				4DDF8C2A1F211E2E008C2135 /* HTMLSAXParserTests.xctest */,
 				4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */,
+				4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -156,7 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
-				4DDF8C251F211E2E008C2135 /* Info.plist */,
+				4DDF8C251F211E2E008C2135 /* Info_iOS.plist */,
+				4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */,
 				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
 				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
 				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
@@ -180,6 +196,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		4D3D6DA61F3EDEDA00EE40CB /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D3D6DB21F3EDF0100EE40CB /* HTMLParserHandlers.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4DDF8C1E1F211E2D008C2135 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -192,6 +216,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4D3D6DA81F3EDEDA00EE40CB /* HTMLSAXParser MacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D3D6DAE1F3EDEDA00EE40CB /* Build configuration list for PBXNativeTarget "HTMLSAXParser MacOS" */;
+			buildPhases = (
+				4D3D6DA41F3EDEDA00EE40CB /* Sources */,
+				4D3D6DA51F3EDEDA00EE40CB /* Frameworks */,
+				4D3D6DA61F3EDEDA00EE40CB /* Headers */,
+				4D3D6DA71F3EDEDA00EE40CB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HTMLSAXParser MacOS";
+			productName = "HTMLSAXParser MacOS";
+			productReference = 4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		4D9BB2291F2160450010D5A8 /* HTMLParserDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D9BB2391F2160450010D5A8 /* Build configuration list for PBXNativeTarget "HTMLParserDemo" */;
@@ -211,9 +253,9 @@
 			productReference = 4D9BB22A1F2160450010D5A8 /* HTMLParserDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4DDF8C201F211E2D008C2135 /* HTMLSAXParser */ = {
+		4DDF8C201F211E2D008C2135 /* HTMLSAXParser iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLSAXParser" */;
+			buildConfigurationList = 4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLSAXParser iOS" */;
 			buildPhases = (
 				4DDF8C1C1F211E2D008C2135 /* Sources */,
 				4DDF8C1D1F211E2D008C2135 /* Frameworks */,
@@ -224,7 +266,7 @@
 			);
 			dependencies = (
 			);
-			name = HTMLSAXParser;
+			name = "HTMLSAXParser iOS";
 			productName = HTMLParser;
 			productReference = 4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */;
 			productType = "com.apple.product-type.framework";
@@ -257,6 +299,9 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Raymond Mccrae";
 				TargetAttributes = {
+					4D3D6DA81F3EDEDA00EE40CB = {
+						CreatedOnToolsVersion = 9.0;
+					};
 					4D9BB2291F2160450010D5A8 = {
 						CreatedOnToolsVersion = 9.0;
 					};
@@ -282,7 +327,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4DDF8C201F211E2D008C2135 /* HTMLSAXParser */,
+				4DDF8C201F211E2D008C2135 /* HTMLSAXParser iOS */,
+				4D3D6DA81F3EDEDA00EE40CB /* HTMLSAXParser MacOS */,
 				4DDF8C291F211E2E008C2135 /* HTMLSAXParserTests */,
 				4D9BB2291F2160450010D5A8 /* HTMLParserDemo */,
 			);
@@ -290,6 +336,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D3D6DA71F3EDEDA00EE40CB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9BB2281F2160450010D5A8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,6 +372,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D3D6DA41F3EDEDA00EE40CB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D3D6DB31F3EDF0500EE40CB /* HTMLParserHandlers.c in Sources */,
+				4D3D6DB11F3EDEFA00EE40CB /* HTMLSAXParser.swift in Sources */,
+				4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */,
+				4D3D6DB41F3EDF0800EE40CB /* HTMLSAXParser+libxml2.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D9BB2261F2160450010D5A8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -353,12 +417,12 @@
 /* Begin PBXTargetDependency section */
 		4D9BB23F1F21605E0010D5A8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4DDF8C201F211E2D008C2135 /* HTMLSAXParser */;
+			target = 4DDF8C201F211E2D008C2135 /* HTMLSAXParser iOS */;
 			targetProxy = 4D9BB23E1F21605E0010D5A8 /* PBXContainerItemProxy */;
 		};
 		4DDF8C2D1F211E2E008C2135 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4DDF8C201F211E2D008C2135 /* HTMLSAXParser */;
+			target = 4DDF8C201F211E2D008C2135 /* HTMLSAXParser iOS */;
 			targetProxy = 4DDF8C2C1F211E2E008C2135 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -383,6 +447,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4D3D6DAF1F3EDEDA00EE40CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = HTMLSAXParser/Info_MacOS.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yahoo.raymccrae.HTMLSAXParser-MacOS";
+				PRODUCT_NAME = HTMLSAXParser;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		4D3D6DB01F3EDEDA00EE40CB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = HTMLSAXParser/Info_MacOS.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yahoo.raymccrae.HTMLSAXParser-MacOS";
+				PRODUCT_NAME = HTMLSAXParser;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
 		4D9BB23A1F2160450010D5A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -534,12 +646,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info.plist;
+				INFOPLIST_FILE = HTMLSAXParser/Info_iOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -558,12 +670,12 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info.plist;
+				INFOPLIST_FILE = HTMLSAXParser/Info_iOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
 				SWIFT_VERSION = 4.0;
@@ -602,6 +714,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D3D6DAE1F3EDEDA00EE40CB /* Build configuration list for PBXNativeTarget "HTMLSAXParser MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D3D6DAF1F3EDEDA00EE40CB /* Debug */,
+				4D3D6DB01F3EDEDA00EE40CB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4D9BB2391F2160450010D5A8 /* Build configuration list for PBXNativeTarget "HTMLParserDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -620,7 +741,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLSAXParser" */ = {
+		4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLSAXParser iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4DDF8C361F211E2E008C2135 /* Debug */,
