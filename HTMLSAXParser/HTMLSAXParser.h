@@ -18,7 +18,7 @@
 //  limitations under the License.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for HTMLSAXParser.
 FOUNDATION_EXPORT double HTMLSAXParserVersionNumber;
