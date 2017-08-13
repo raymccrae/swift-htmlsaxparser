@@ -74,11 +74,9 @@
 /* Begin PBXFileReference section */
 		4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLEncodeEntitiesTests.swift; sourceTree = "<group>"; };
 		4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_MacOS.plist; sourceTree = "<group>"; };
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
 		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D7F1DA61F3EED560080660A /* Info_AppleTV.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_AppleTV.plist; sourceTree = "<group>"; };
 		4D7F1DAC1F3EF5540080660A /* article_with_images.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = article_with_images.html; path = HTMLSAXParserTests/testdata/article_with_images.html; sourceTree = SOURCE_ROOT; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
 		4D9286B91F3516E6001A16FC /* test_uft16le.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = test_uft16le.html; path = HTMLSAXParserTests/testdata/test_uft16le.html; sourceTree = SOURCE_ROOT; };
@@ -93,7 +91,6 @@
 		4D9BB2381F2160450010D5A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DDF8C211F211E2D008C2135 /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLSAXParser.h; sourceTree = "<group>"; };
-		4DDF8C251F211E2E008C2135 /* Info_iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info_iOS.plist; sourceTree = "<group>"; };
 		4DDF8C2A1F211E2E008C2135 /* HTMLSAXParserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HTMLSAXParserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParserTests.swift; sourceTree = "<group>"; };
 		4DDF8C311F211E2E008C2135 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,7 +165,7 @@
 		4DDF8C171F211E2D008C2135 = {
 			isa = PBXGroup;
 			children = (
-				4DDF8C231F211E2D008C2135 /* HTMLSAXParser */,
+				4DDF8C231F211E2D008C2135 /* Sources */,
 				4DDF8C2E1F211E2E008C2135 /* HTMLSAXParserTests */,
 				4D9BB22B1F2160450010D5A8 /* HTMLParserDemo */,
 				4DDF8C221F211E2D008C2135 /* Products */,
@@ -187,20 +184,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4DDF8C231F211E2D008C2135 /* HTMLSAXParser */ = {
+		4DDF8C231F211E2D008C2135 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
-				4DDF8C251F211E2E008C2135 /* Info_iOS.plist */,
-				4D3D6DB71F3EE05500EE40CB /* Info_MacOS.plist */,
-				4D7F1DA61F3EED560080660A /* Info_AppleTV.plist */,
 				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
 				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
 				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
 				4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */,
 				4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */,
 			);
-			path = HTMLSAXParser;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		4DDF8C2E1F211E2E008C2135 /* HTMLSAXParserTests */ = {
@@ -530,7 +524,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_MacOS.plist;
+				INFOPLIST_FILE = Info_MacOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -554,7 +548,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_MacOS.plist;
+				INFOPLIST_FILE = Info_MacOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -576,7 +570,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_AppleTV.plist;
+				INFOPLIST_FILE = Info_AppleTV.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
@@ -599,7 +593,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_AppleTV.plist;
+				INFOPLIST_FILE = Info_AppleTV.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
@@ -766,7 +760,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_iOS.plist;
+				INFOPLIST_FILE = Info_iOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -790,7 +784,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = HTMLSAXParser/Info_iOS.plist;
+				INFOPLIST_FILE = Info_iOS.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
