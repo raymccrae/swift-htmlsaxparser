@@ -22,6 +22,7 @@
 		4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D7F1DAD1F3EF59D0080660A /* article_with_images.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D7F1DAC1F3EF5540080660A /* article_with_images.html */; };
+		4D7F1DB21F40493B0080660A /* HTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D9286BB1F3516F1001A16FC /* test_uft8.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286BA1F3516E6001A16FC /* test_uft8.html */; };
 		4D9286BC1F3516F4001A16FC /* test_uft16le.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D9286B91F3516E6001A16FC /* test_uft16le.html */; };
@@ -221,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D3D6DB21F3EDF0100EE40CB /* HTMLParserHandlers.h in Headers */,
+				4D7F1DB21F40493B0080660A /* HTMLSAXParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
