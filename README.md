@@ -14,11 +14,11 @@ is: -
 ```swift
 let parser = HTMLSAXParser()
 do {
-	try parser.parse(string: "<html><body>Some HTML Content</body></html>") { event in
+	try parser.parse(string: "<html><body>Some HTML Content</body></html>") { context, event in
 		switch event {
-			case let .startElement(name, attributes, location):
+			case let .startElement(name, attributes):
 				print("Found character : \(name)")
-			case let .character(text, _):
+			case let .character(text):
 				print("Found character : \(text)")
 			default:
 				break
@@ -41,9 +41,9 @@ a parser delegate class.
 func imageSources(from htmlData: Data) throws -> [String] {
 	var sources: [String] = []
 	let parser = HTMLSAXParser()
-	try parser.parse(data: htmlData) { event in
+	try parser.parse(data: htmlData) { context, event in
 		switch event {
-			case let .startElement(name, attributes, _) where name == "img":
+			case let .startElement(name, attributes) where name == "img":
 				if let source = attributes["src"] {
 					sources.append(source)
 				}
