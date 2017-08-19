@@ -548,7 +548,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -572,7 +572,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -593,7 +593,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -616,7 +616,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -783,7 +783,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
 				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -807,7 +807,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
 				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/Sources/CHTMLSAXParser/include";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

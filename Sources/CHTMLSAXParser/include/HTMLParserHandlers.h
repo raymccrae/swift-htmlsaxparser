@@ -18,6 +18,9 @@
 //  limitations under the License.
 //
 
+#import <libxml/SAX2.h>
+#import <libxml/HTMLparser.h>
+
 #ifndef HTMLParserHandlers_h
 #define HTMLParserHandlers_h
 

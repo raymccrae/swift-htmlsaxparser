@@ -19,7 +19,7 @@
 //
 
 import Foundation
-import CLibXML2
+import CHTMLSAXParser
 
 public enum HTMLQuoteCharacter: Character {
     case none = "\0"

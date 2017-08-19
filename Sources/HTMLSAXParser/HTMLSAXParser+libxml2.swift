@@ -19,7 +19,6 @@
 //
 
 import Foundation
-import CLibXML2
 import CHTMLSAXParser
 
 internal extension HTMLSAXParser {
