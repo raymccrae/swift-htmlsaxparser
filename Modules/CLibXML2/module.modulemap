@@ -1,0 +1,5 @@
+module CLibXML2 [system] {
+    umbrella header "CLibXML2.h"
+    link "xml2"
+    export *
+}

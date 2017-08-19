@@ -19,7 +19,7 @@
 //
 
 import Foundation
-import libxml2
+import CLibXML2
 
 public protocol HTMLSAXParseContext {
 

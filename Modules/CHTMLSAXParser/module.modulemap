@@ -1,0 +1,4 @@
+module CHTMLSAXParser {
+    header "../../Sources/CHTMLSAXParser/include/HTMLParserHandlers.h"
+    export *
+}

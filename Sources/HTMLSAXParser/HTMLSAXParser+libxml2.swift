@@ -19,8 +19,8 @@
 //
 
 import Foundation
-import libxml2
-import HTMLParserC
+import CLibXML2
+import CHTMLSAXParser
 
 internal extension HTMLSAXParser {
     

@@ -75,7 +75,7 @@
 		4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLEncodeEntitiesTests.swift; sourceTree = "<group>"; };
 		4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
-		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLParserHandlers.h; sourceTree = "<group>"; };
+		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTMLParserHandlers.h; path = include/HTMLParserHandlers.h; sourceTree = "<group>"; };
 		4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D7F1DAC1F3EF5540080660A /* article_with_images.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = article_with_images.html; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
@@ -148,6 +148,26 @@
 			path = testdata;
 			sourceTree = "<group>";
 		};
+		4D950ABA1F48216A009825FD /* HTMLSAXParser */ = {
+			isa = PBXGroup;
+			children = (
+				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
+				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
+				4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */,
+				4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */,
+			);
+			path = HTMLSAXParser;
+			sourceTree = "<group>";
+		};
+		4D950ABB1F4821EA009825FD /* CHTMLSAXParser */ = {
+			isa = PBXGroup;
+			children = (
+				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
+				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
+			);
+			path = CHTMLSAXParser;
+			sourceTree = "<group>";
+		};
 		4D9BB22B1F2160450010D5A8 /* HTMLParserDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,12 +206,8 @@
 		4DDF8C231F211E2D008C2135 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */,
-				4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */,
-				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
-				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
-				4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */,
-				4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */,
+				4D950ABA1F48216A009825FD /* HTMLSAXParser */,
+				4D950ABB1F4821EA009825FD /* CHTMLSAXParser */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -204,7 +220,8 @@
 				4DDF8C311F211E2E008C2135 /* Info.plist */,
 				4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */,
 			);
-			path = Tests;
+			name = Tests;
+			path = Tests/HTMLSAXParser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,7 +548,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -555,7 +572,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -576,7 +593,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -599,7 +616,7 @@
 				PRODUCT_NAME = HTMLSAXParser;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
@@ -766,7 +783,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
 				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -790,7 +807,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLSAXParser;
 				PRODUCT_NAME = HTMLSAXParser;
 				SKIP_INSTALL = YES;
-				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/libxml2 $(PROJECT_DIR)/modules/HTMLParserC";
+				SWIFT_INCLUDE_PATHS = "$(PROJECT_DIR)/modules/CLibXML2 $(PROJECT_DIR)/modules/CHTMLSAXParser";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -801,7 +818,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/HTMLSAXParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -815,7 +832,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = Tests/HTMLSAXParser/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yahoo.raymccrae.HTMLParserTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
