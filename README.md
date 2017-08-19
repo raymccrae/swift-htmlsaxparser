@@ -55,6 +55,33 @@ func imageSources(from htmlData: Data) throws -> [String] {
 }
 ```
 
+## Installation
+
+### Swift Package Manager
+
+Add HTMLSAXParser as a dependency to your projects `Package.swift`. For example: -
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "YourProject",
+
+    dependencies: [
+        .package(url: "https://github.com/raymccrae/swift-htmlsaxparser.git", from: "0.2.0")
+    ]
+)
+```
+
+Since this module makes use of `libxml2` you will need to inform the C compiler where the
+header files for libxml2 are located. If you have Xcode installed (Mac Only) then you can
+include the following additional arguments to the swift build command to the current SDK
+path:
+
+```bash
+$ swift build -Xcc -I"$(xcrun --show-sdk-path)/usr/include/libxml2"
+```
+
 ## Contributors
 
 ### Contributors on GitHub
