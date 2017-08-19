@@ -307,7 +307,7 @@ internal extension HTMLSAXParser {
         return handler
     }
 
-    private static var globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
+    private static let globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
         htmlparser_global_error_sax_func = {context, message in
             guard let context = context, let message = message else {
                 return
@@ -319,7 +319,7 @@ internal extension HTMLSAXParser {
         }
         return htmlparser_global_error_sax_func
     }()
-    private static var globalWarningHandler: HTMLParserWrappedWarningSAXFunc = {
+    private static let globalWarningHandler: HTMLParserWrappedWarningSAXFunc = {
         htmlparser_global_warning_sax_func = { context, message in
             guard let context = context, let message = message else {
                 return
