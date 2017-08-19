@@ -1,5 +1,5 @@
 //
-//  HTMLSAXParserHandlers.h
+//  CHTMLSAXParser.h
 //  HTMLSAXParser
 //
 //  Created by Raymond Mccrae on 31/07/2017.
@@ -21,8 +21,8 @@
 #import <libxml/SAX2.h>
 #import <libxml/HTMLparser.h>
 
-#ifndef HTMLParserHandlers_h
-#define HTMLParserHandlers_h
+#ifndef CHTMLSAXParser_h
+#define CHTMLSAXParser_h
 
 typedef void(*HTMLParserWrappedErrorSAXFunc)(void *ctx, const char *msg);
 typedef void(*HTMLParserWrappedWarningSAXFunc)(void *ctx, const char *msg);
@@ -33,4 +33,4 @@ extern HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 void htmlparser_set_global_error_handler(void *sax_handler);
 void htmlparser_set_global_warning_handler(void *sax_handler);
 
-#endif /* HTMLParserHandlers_h */
+#endif /* CHTMLSAXParser_h */

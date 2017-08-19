@@ -1,5 +1,5 @@
 module CHTMLSAXParser {
-    header "HTMLParserHandlers.h"
+    header "CHTMLSAXParser.h"
     link "xml2"
     export *
 }

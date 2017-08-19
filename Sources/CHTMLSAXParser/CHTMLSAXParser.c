@@ -1,5 +1,5 @@
 //
-//  HTMLSAXParserHandlers.c
+//  CHTMLSAXParser.c
 //  HTMLSAXParser
 //
 //  Created by Raymond Mccrae on 31/07/2017.
@@ -20,8 +20,7 @@
 
 #include <stdio.h>
 #include <stdarg.h>
-#include "HTMLParserHandlers.h"
-#include <libxml/HTMLparser.h>
+#include "CHTMLSAXParser.h"
 
 HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
 HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;

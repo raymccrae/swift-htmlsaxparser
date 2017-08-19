@@ -9,16 +9,16 @@
 /* Begin PBXBuildFile section */
 		4D161F411F228123002573EF /* HTMLEncodeEntitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */; };
 		4D3D6DB11F3EDEFA00EE40CB /* HTMLSAXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */; };
-		4D3D6DB21F3EDF0100EE40CB /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
-		4D3D6DB31F3EDF0500EE40CB /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
+		4D3D6DB21F3EDF0100EE40CB /* CHTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* CHTMLSAXParser.h */; };
+		4D3D6DB31F3EDF0500EE40CB /* CHTMLSAXParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* CHTMLSAXParser.c */; };
 		4D3D6DB41F3EDF0800EE40CB /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
-		4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
-		4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
+		4D77F7361F2EFEB100C29ECC /* CHTMLSAXParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* CHTMLSAXParser.c */; };
+		4D77F7371F2EFEB100C29ECC /* CHTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* CHTMLSAXParser.h */; };
 		4D7F1DA51F3EED470080660A /* HTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4DDF8C241F211E2E008C2135 /* HTMLSAXParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4D7F1DA71F3EED5B0080660A /* HTMLSAXParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDF8C3B1F211F01008C2135 /* HTMLSAXParser.swift */; };
-		4D7F1DA81F3EED5E0080660A /* HTMLParserHandlers.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */; };
-		4D7F1DA91F3EED640080660A /* HTMLParserHandlers.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */; };
+		4D7F1DA81F3EED5E0080660A /* CHTMLSAXParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D77F7351F2EFEB100C29ECC /* CHTMLSAXParser.h */; };
+		4D7F1DA91F3EED640080660A /* CHTMLSAXParser.c in Sources */ = {isa = PBXBuildFile; fileRef = 4D77F7341F2EFEB100C29ECC /* CHTMLSAXParser.c */; };
 		4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9BB2241F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift */; };
 		4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */; };
 		4D7F1DAD1F3EF59D0080660A /* article_with_images.html in Resources */ = {isa = PBXBuildFile; fileRef = 4D7F1DAC1F3EF5540080660A /* article_with_images.html */; };
@@ -74,8 +74,8 @@
 /* Begin PBXFileReference section */
 		4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLEncodeEntitiesTests.swift; sourceTree = "<group>"; };
 		4D3D6DA91F3EDEDA00EE40CB /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = HTMLParserHandlers.c; sourceTree = "<group>"; };
-		4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HTMLParserHandlers.h; path = include/HTMLParserHandlers.h; sourceTree = "<group>"; };
+		4D77F7341F2EFEB100C29ECC /* CHTMLSAXParser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CHTMLSAXParser.c; sourceTree = "<group>"; };
+		4D77F7351F2EFEB100C29ECC /* CHTMLSAXParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CHTMLSAXParser.h; path = include/CHTMLSAXParser.h; sourceTree = "<group>"; };
 		4D7F1D9D1F3EEC790080660A /* HTMLSAXParser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTMLSAXParser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D7F1DAC1F3EF5540080660A /* article_with_images.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = article_with_images.html; sourceTree = "<group>"; };
 		4D80C5571F21C84600E2F340 /* EscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EscapeSpecialCharacters.swift; sourceTree = "<group>"; };
@@ -162,8 +162,8 @@
 		4D950ABB1F4821EA009825FD /* CHTMLSAXParser */ = {
 			isa = PBXGroup;
 			children = (
-				4D77F7351F2EFEB100C29ECC /* HTMLParserHandlers.h */,
-				4D77F7341F2EFEB100C29ECC /* HTMLParserHandlers.c */,
+				4D77F7351F2EFEB100C29ECC /* CHTMLSAXParser.h */,
+				4D77F7341F2EFEB100C29ECC /* CHTMLSAXParser.c */,
 			);
 			path = CHTMLSAXParser;
 			sourceTree = "<group>";
@@ -231,7 +231,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3D6DB21F3EDF0100EE40CB /* HTMLParserHandlers.h in Headers */,
+				4D3D6DB21F3EDF0100EE40CB /* CHTMLSAXParser.h in Headers */,
 				4D7F1DB21F40493B0080660A /* HTMLSAXParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,7 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D7F1DA51F3EED470080660A /* HTMLSAXParser.h in Headers */,
-				4D7F1DA81F3EED5E0080660A /* HTMLParserHandlers.h in Headers */,
+				4D7F1DA81F3EED5E0080660A /* CHTMLSAXParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DDF8C321F211E2E008C2135 /* HTMLSAXParser.h in Headers */,
-				4D77F7371F2EFEB100C29ECC /* HTMLParserHandlers.h in Headers */,
+				4D77F7371F2EFEB100C29ECC /* CHTMLSAXParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,7 +447,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D3D6DB31F3EDF0500EE40CB /* HTMLParserHandlers.c in Sources */,
+				4D3D6DB31F3EDF0500EE40CB /* CHTMLSAXParser.c in Sources */,
 				4D3D6DB11F3EDEFA00EE40CB /* HTMLSAXParser.swift in Sources */,
 				4D3D6DB51F3EDF0A00EE40CB /* EscapeSpecialCharacters.swift in Sources */,
 				4D3D6DB41F3EDF0800EE40CB /* HTMLSAXParser+libxml2.swift in Sources */,
@@ -458,7 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D7F1DA91F3EED640080660A /* HTMLParserHandlers.c in Sources */,
+				4D7F1DA91F3EED640080660A /* CHTMLSAXParser.c in Sources */,
 				4D7F1DA71F3EED5B0080660A /* HTMLSAXParser.swift in Sources */,
 				4D7F1DAB1F3EED6B0080660A /* EscapeSpecialCharacters.swift in Sources */,
 				4D7F1DAA1F3EED670080660A /* HTMLSAXParser+libxml2.swift in Sources */,
@@ -478,7 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D77F7361F2EFEB100C29ECC /* HTMLParserHandlers.c in Sources */,
+				4D77F7361F2EFEB100C29ECC /* CHTMLSAXParser.c in Sources */,
 				4D9BB2251F215C5C0010D5A8 /* HTMLSAXParser+libxml2.swift in Sources */,
 				4D80C5581F21C84600E2F340 /* EscapeSpecialCharacters.swift in Sources */,
 				4DDF8C3C1F211F01008C2135 /* HTMLSAXParser.swift in Sources */,
