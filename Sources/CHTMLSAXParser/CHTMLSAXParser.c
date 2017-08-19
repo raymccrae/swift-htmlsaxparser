@@ -25,6 +25,10 @@
 HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
 HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 
+/**
+ The global error handling function for the module. This function will format the
+ message into a single string before calling the wrapped error function.
+ */
 static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
     va_list vl;
     int consumed = 0;

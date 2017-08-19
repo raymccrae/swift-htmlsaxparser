@@ -168,6 +168,13 @@ internal extension HTMLSAXParser {
         }
     }
     
+    /**
+     Create a htmlSAXHandler instance for the libxml2 html parser. The created htmlSAXHandler struct
+     will have the various function pointers set to the relevant Swift closures to process the event
+     and forward the event to the EventHandler closure within the parsing context.
+
+     - Returns: An instance of htmlSAXHandler with the function pointers set.
+     */
     private static func createSAXHandler() -> htmlSAXHandler {
         var handler = htmlSAXHandler()
         
@@ -214,14 +221,13 @@ internal extension HTMLSAXParser {
                             elementAttributes[attributeName] = attributeValue
                         }
                         else {
+                            // If the attribute does not have a value then use an empty string for value.
                             elementAttributes[attributeName] = ""
                         }
                     }
                     else {
                         break
                     }
-                    
-                    
                 }
             }
             
@@ -299,6 +305,7 @@ internal extension HTMLSAXParser {
             handlerContext.handler(handlerContext, .cdata(block: dataBlock))
         }
         
+        // Set the global error and warning handler functions.
         let _ = HTMLSAXParser.globalErrorHandler
         let _ = HTMLSAXParser.globalWarningHandler
         withUnsafeMutablePointer(to: &handler) { (handlerPtr) in
@@ -310,6 +317,7 @@ internal extension HTMLSAXParser {
     }
 
     private static let globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
+        // We only want to set this global once ever. Regardless of the number of instances of parsers.
         htmlparser_global_error_sax_func = {context, message in
             guard let context = context, let message = message else {
                 return
@@ -322,6 +330,7 @@ internal extension HTMLSAXParser {
         return htmlparser_global_error_sax_func
     }()
     private static let globalWarningHandler: HTMLParserWrappedWarningSAXFunc = {
+        // We only want to set this global once ever. Regardless of the number of instances of parsers.
         htmlparser_global_warning_sax_func = { context, message in
             guard let context = context, let message = message else {
                 return
