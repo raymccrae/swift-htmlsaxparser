@@ -23,6 +23,8 @@ import CHTMLSAXParser
 
 internal extension HTMLSAXParser {
     
+    private static let libxmlSAXHandler: htmlSAXHandler = createSAXHandler()
+
     func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
         let dataLength = data.count
         var charEncoding: xmlCharEncoding = XML_CHAR_ENCODING_NONE
@@ -43,7 +45,7 @@ internal extension HTMLSAXParser {
         try data.withUnsafeBytes{ (dataBytes: UnsafePointer<Int8>) -> Void in
             let handlerContext = HandlerContext(handler: handler)
             let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
-            var libxmlHandler = saxHandler()
+            var libxmlHandler = HTMLSAXParser.libxmlSAXHandler
             guard let parserContext = htmlCreatePushParserCtxt(&libxmlHandler, handlerContextPtr, dataBytes, Int32(dataLength), nil, charEncoding) else {
                 throw Error.unknown
             }
@@ -166,7 +168,7 @@ internal extension HTMLSAXParser {
         }
     }
     
-    private func saxHandler() -> htmlSAXHandler {
+    private static func createSAXHandler() -> htmlSAXHandler {
         var handler = htmlSAXHandler()
         
         handler.startDocument = { (context: UnsafeMutableRawPointer?) in
