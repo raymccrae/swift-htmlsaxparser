@@ -99,14 +99,14 @@ static void htmlparser_warning_sax_handler(void *ctx, const char *msg, ...) {
     }
 }
 
-void htmlparser_set_global_error_handler(void *sax_handler) {
+void htmlparser_set_global_error_handler(htmlSAXHandlerPtr sax_handler) {
     if (sax_handler != NULL) {
-        ((htmlSAXHandlerPtr) sax_handler)->error = htmlparser_error_sax_handler;
+        sax_handler->error = htmlparser_error_sax_handler;
     }
 }
 
-void htmlparser_set_global_warning_handler(void *sax_handler) {
+void htmlparser_set_global_warning_handler(htmlSAXHandlerPtr sax_handler) {
     if (sax_handler != NULL) {
-        ((htmlSAXHandlerPtr) sax_handler)->warning = htmlparser_warning_sax_handler;
+        sax_handler->warning = htmlparser_warning_sax_handler;
     }
 }

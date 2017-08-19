@@ -30,7 +30,7 @@ typedef void(*HTMLParserWrappedWarningSAXFunc)(void *ctx, const char *msg);
 extern HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
 extern HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 
-void htmlparser_set_global_error_handler(void *sax_handler);
-void htmlparser_set_global_warning_handler(void *sax_handler);
+void htmlparser_set_global_error_handler(htmlSAXHandlerPtr sax_handler);
+void htmlparser_set_global_warning_handler(htmlSAXHandlerPtr sax_handler);
 
 #endif /* CHTMLSAXParser_h */
