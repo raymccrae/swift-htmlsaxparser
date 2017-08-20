@@ -98,19 +98,12 @@ open class HTMLSAXParser {
         case error(message: String)
     }
 
-    public enum ErrorLevel: Int {
-        case none = 0
-        case warning = 1
-        case error = 2
-        case fatal = 3
-    }
-
     public enum Error: Swift.Error {
         case unknown
         case unsupportedCharEncoding
         case stringEncodingConversion
         case emptyDocument
-        case parsingFailure(level: ErrorLevel, location: Location, message: String)
+        case parsingFailure(location: Location, message: String)
     }
     
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
@@ -134,7 +127,7 @@ open class HTMLSAXParser {
      
      - Parameter string: The string containing the HTML content.
      - Parameter handler: The event handler closure that will be called during parsing.
-     - Throws: `HTMLParser.Error` if an error occured during parsing.
+     - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
      */
     open func parse(string: String, handler: @escaping EventHandler) throws {
         guard let uft8Data = string.data(using: .utf8) else {
@@ -159,7 +152,7 @@ open class HTMLSAXParser {
      - Parameter encoding: The character encoding to interpret the data. If no encoding
      is given then the parser will attempt to detect the encoding.
      - Parameter handler: The event handler closure that will be called during parsing.
-     - Throws: `HTMLParser.Error` if an error occured during parsing.
+     - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
      */
     open func parse(data: Data, encoding: String.Encoding? = nil, handler: @escaping EventHandler) throws {
         let dataLength = data.count
