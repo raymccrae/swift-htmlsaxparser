@@ -69,7 +69,17 @@ internal extension HTMLSAXParser {
 
                 switch errorLevel {
                 case .fatal:
-                    throw Error.parsingFailure(level: errorLevel)
+                    let message: String
+                    if let messageCString = error.pointee.message {
+                        message = String(cString: messageCString)
+                    }
+                    else {
+                        message = ""
+                    }
+
+                    let location = Location(line: Int(error.pointee.line), column: Int(error.pointee.int2))
+
+                    throw Error.parsingFailure(level: errorLevel, location: location, message: message)
                 case .none, .warning, .error:
                     break
                 }

@@ -110,7 +110,7 @@ open class HTMLSAXParser {
         case unsupportedCharEncoding
         case stringEncodingConversion
         case emptyDocument
-        case parsingFailure(level: ErrorLevel)
+        case parsingFailure(level: ErrorLevel, location: Location, message: String)
     }
     
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
