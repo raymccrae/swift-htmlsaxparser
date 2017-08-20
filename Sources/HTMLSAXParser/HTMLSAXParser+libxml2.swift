@@ -60,30 +60,7 @@ internal extension HTMLSAXParser {
             htmlCtxtUseOptions(parserContext, options)
             
             let parseResult = htmlParseDocument(parserContext)
-            let parseSuccess = parseResult == 0
-            if !parseSuccess {
-                guard let error = handlerContext.lastError(),
-                      let errorLevel = ErrorLevel(rawValue: Int(error.pointee.level.rawValue)) else {
-                    return
-                }
-
-                switch errorLevel {
-                case .fatal:
-                    let message: String
-                    if let messageCString = error.pointee.message {
-                        message = String(cString: messageCString)
-                    }
-                    else {
-                        message = ""
-                    }
-
-                    let location = Location(line: Int(error.pointee.line), column: Int(error.pointee.int2))
-
-                    throw Error.parsingFailure(level: errorLevel, location: location, message: message)
-                case .none, .warning, .error:
-                    break
-                }
-            }
+            try handleParseResult(parseResult, handlerContext)
 
         }
     }
@@ -140,6 +117,45 @@ internal extension HTMLSAXParser {
         }
     }
     
+    /**
+     Handle the parse result from the underlying libxml2 htmlParseDocument call. Determines if the parse method
+     should throw a parsingFailure error. This will check the result did not end with a fatal error. Other less
+     serious error levels will be considered a success.
+
+     One success the method returns, otherwise the method throws an `HTMLParser.Error`
+
+     - Parameter parseResult: The result from the libxml2 htmlParseDocument call.
+     - Parameter handlerContext: The handler context.
+     - Throws: `HTMLParser.Error` if the parsing ended with a fatel error.
+     */
+    private func handleParseResult(_ parseResult: Int32, _ handlerContext: HTMLSAXParser.HandlerContext) throws {
+        // htmlParseDocument returns zero for success, therefore if non-zero we need to check the last error.
+        if parseResult != 0 {
+            guard let error = handlerContext.lastError(),
+                let errorLevel = ErrorLevel(rawValue: Int(error.pointee.level.rawValue)) else {
+                    // If no last error was found or the error level has invalid value then just return.
+                    return
+            }
+
+            switch errorLevel {
+            case .fatal: // if fatal then throw a parsingFailure
+                let message: String
+                if let messageCString = error.pointee.message {
+                    message = String(cString: messageCString).trimmingCharacters(in: .whitespacesAndNewlines)
+                }
+                else {
+                    message = ""
+                }
+
+                let location = Location(line: Int(error.pointee.line), column: Int(error.pointee.int2))
+
+                throw Error.parsingFailure(level: errorLevel, location: location, message: message)
+            case .none, .warning, .error: // All other levels of error will be considered success
+                break
+            }
+        }
+    }
+
     private class HandlerContext: HTMLSAXParseContext {
 
         let handler: EventHandler
