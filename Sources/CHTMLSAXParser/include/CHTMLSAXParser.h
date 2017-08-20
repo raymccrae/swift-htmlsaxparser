@@ -20,6 +20,7 @@
 
 #import <libxml/SAX2.h>
 #import <libxml/HTMLparser.h>
+#import <libxml/xmlerror.h>
 
 #ifndef CHTMLSAXParser_h
 #define CHTMLSAXParser_h

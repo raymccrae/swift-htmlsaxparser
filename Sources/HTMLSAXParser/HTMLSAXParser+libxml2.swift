@@ -59,9 +59,20 @@ internal extension HTMLSAXParser {
             let options = CInt(parseOptions.rawValue)
             htmlCtxtUseOptions(parserContext, options)
             
-            let parseSuccess = htmlParseDocument(parserContext) != 0
+            let parseResult = htmlParseDocument(parserContext)
+            let parseSuccess = parseResult == 0
             if !parseSuccess {
-                throw Error.parsingFailure
+                guard let error = handlerContext.lastError(),
+                      let errorLevel = ErrorLevel(rawValue: Int(error.pointee.level.rawValue)) else {
+                    return
+                }
+
+                switch errorLevel {
+                case .fatal:
+                    throw Error.parsingFailure(level: errorLevel)
+                case .none, .warning, .error:
+                    break
+                }
             }
 
         }
@@ -165,6 +176,13 @@ internal extension HTMLSAXParser {
             }
 
             xmlStopParser(contextPtr)
+        }
+
+        fileprivate func lastError() -> xmlErrorPtr? {
+            guard let contextPtr = contextPtr, let errorPtr = xmlCtxtGetLastError(contextPtr) else {
+                return nil
+            }
+            return errorPtr
         }
     }
     

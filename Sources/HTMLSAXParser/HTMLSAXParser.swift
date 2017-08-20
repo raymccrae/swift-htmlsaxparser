@@ -98,12 +98,19 @@ open class HTMLSAXParser {
         case error(message: String)
     }
 
+    public enum ErrorLevel: Int {
+        case none = 0
+        case warning = 1
+        case error = 2
+        case fatal = 3
+    }
+
     public enum Error: Swift.Error {
         case unknown
         case unsupportedCharEncoding
         case stringEncodingConversion
         case emptyDocument
-        case parsingFailure
+        case parsingFailure(level: ErrorLevel)
     }
     
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
