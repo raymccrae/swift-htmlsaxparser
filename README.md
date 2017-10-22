@@ -1,4 +1,4 @@
-HTML SAX Parser for Swift 3
+HTML SAX Parser for Swift 4
 ======
 **HTMLSAXParser** is a swift module that wraps the libxml2 HTMLParser for the purposes
 of providing a simple lightweight SAX parser for HTML content. libxml2 is part of the
@@ -68,7 +68,7 @@ let package = Package(
     name: "YourProject",
 
     dependencies: [
-        .package(url: "https://github.com/raymccrae/swift-htmlsaxparser.git", from: "0.2.0")
+        .package(url: "https://github.com/raymccrae/swift-htmlsaxparser.git", from: "0.3.0")
     ]
 )
 ```
@@ -91,4 +91,4 @@ $ swift build -Xcc -I"$(xcrun --show-sdk-path)/usr/include/libxml2"
 * see [LICENSE](https://github.com/raymccrae/swift-htmlsaxparser/blob/master/LICENSE) file
 
 ## Version 
-* Version 0.2
+* Version 0.3
