@@ -25,81 +25,79 @@
 HTMLParserWrappedErrorSAXFunc htmlparser_global_error_sax_func;
 HTMLParserWrappedWarningSAXFunc htmlparser_global_warning_sax_func;
 
+static char* formatstr(const char *format, va_list args) {
+    int consumed = 0;
+    size_t buffer_size = 0;
+    char *buffer = NULL;
+    va_list vl;
+
+    do {
+        if (consumed > buffer_size) {
+            buffer_size = consumed + 1; // Add 1 for the null character
+        }
+        else {
+            buffer_size += 100;
+        }
+        buffer = realloc(buffer, buffer_size);
+
+        // Check buffer is not null in case malloc / realloc failed.
+        if (buffer != NULL) {
+            va_copy(vl, args);
+            consumed = vsnprintf(buffer, buffer_size, format, vl);
+            va_end(vl);
+        }
+    } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
+
+    if (buffer != NULL) {
+        if (consumed > 0 && consumed < buffer_size) {
+            return buffer;
+        }
+
+        free(buffer);
+    }
+
+    return NULL;
+}
+
 /**
  The global error handling function for the module. This function will format the
  message into a single string before calling the wrapped error function.
  */
 static void htmlparser_error_sax_handler(void *ctx, const char *msg, ...) {
     va_list vl;
-    int consumed = 0;
-    size_t buffer_size = 0;
-    char *buffer = NULL;
+    char *formatted_msg = NULL;
 
-    do {
-        if (consumed > buffer_size) {
-            buffer_size = consumed + 1; // Add 1 for the null character
-        }
-        else {
-            buffer_size += 100;
-        }
-        if (buffer == NULL) {
-            buffer = malloc(buffer_size);
-        }
-        else {
-            buffer = realloc(buffer, buffer_size);
-        }
+    if (htmlparser_global_error_sax_func == NULL) {
+        return;
+    }
 
-        // Check buffer is not null in case malloc / realloc failed.
-        if (buffer != NULL) {
-            va_start(vl, msg);
-            consumed = vsnprintf(buffer, buffer_size, msg, vl);
-            va_end(vl);
-        }
-    } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
+    va_start(vl, msg);
+    formatted_msg = formatstr(msg, vl);
+    va_end(vl);
 
-    if (buffer != NULL) {
-        if (consumed > 0 && consumed < buffer_size && htmlparser_global_error_sax_func != NULL) {
-            htmlparser_global_error_sax_func(ctx, buffer);
-        }
+    htmlparser_global_error_sax_func(ctx, formatted_msg);
 
-        free(buffer);
+    if (formatted_msg != NULL) {
+        free(formatted_msg);
     }
 }
 
 static void htmlparser_warning_sax_handler(void *ctx, const char *msg, ...) {
     va_list vl;
-    int consumed = 0;
-    size_t buffer_size = 0;
-    char *buffer = NULL;
+    char *formatted_msg = NULL;
 
-    do {
-        if (consumed > buffer_size) {
-            buffer_size = consumed + 1; // Add 1 for the null character
-        }
-        else {
-            buffer_size += 100;
-        }
-        if (buffer == NULL) {
-            buffer = malloc(buffer_size);
-        }
-        else {
-            buffer = realloc(buffer, buffer_size);
-        }
+    if (htmlparser_global_warning_sax_func == NULL) {
+        return;
+    }
 
-        // Check buffer is not null in case malloc / realloc failed.
-        if (buffer != NULL) {
-            va_start(vl, msg);
-            consumed = vsnprintf(buffer, buffer_size, msg, vl);
-            va_end(vl);
-        }
-    } while (buffer != NULL && consumed > 0 && consumed >= buffer_size);
+    va_start(vl, msg);
+    formatted_msg = formatstr(msg, vl);
+    va_end(vl);
 
-    if (buffer != NULL) {
-        if (consumed > 0 && consumed < buffer_size && htmlparser_global_warning_sax_func != NULL) {
-            htmlparser_global_warning_sax_func(ctx, buffer);
-        }
+    htmlparser_global_warning_sax_func(ctx, formatted_msg);
 
-        free(buffer);
+    if (formatted_msg != NULL) {
+        free(formatted_msg);
     }
 }
 

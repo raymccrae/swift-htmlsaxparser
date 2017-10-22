@@ -109,7 +109,7 @@ open class HTMLSAXParser {
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
 
     /// The parse options the html parser was initialised with.
-    public let parseOptions: ParseOptions
+    open let parseOptions: ParseOptions
     
     public init(parseOptions: ParseOptions = .`default`) {
         self.parseOptions = parseOptions
@@ -117,13 +117,13 @@ open class HTMLSAXParser {
     
     /**
      Parse a string containing HTML content, calling the events on the handler
-     supplied. Desite the handler being marked as escaping the parse method will
+     supplied. Despite the handler being marked as escaping the parse method will
      operate synchronously.
      
-     Note that should your handler require to use the location information, it
-     should invoke the `LocationClosure` within the scope of the event call
-     and not store the `LocationClosure`. You may safely store the returned
-     `Location` struct out with the scope of event call.
+     Note that your handler should not retain references to the HTMLSAXParseContext
+     instance passed to it beyond the scope of the call. Additionally you should only
+     access the HTMLSAXParseContext instance from the dispatch queue that called your
+     event handler closure.
      
      - Parameter string: The string containing the HTML content.
      - Parameter handler: The event handler closure that will be called during parsing.
@@ -140,13 +140,13 @@ open class HTMLSAXParser {
     /**
      Parse a data representation of HTML content, calling the events on the handler
      supplied. The data will be interpreted using the encoding if supplied. If no
-     encoding is given then the parser will attempt to detect the encoding. Desite
+     encoding is given then the parser will attempt to detect the encoding. Despite
      the handler being marked as escaping the parse method will operate synchronously.
      
-     Note that should your handler require to use the location information, it
-     should invoke the `LocationClosure` within the scope of the event call
-     and not store the `LocationClosure`. You may safely store the returned
-     `Location` struct out with the scope of event call.
+     Note that your handler should not retain references to the HTMLSAXParseContext
+     instance passed to it beyond the scope of the call. Additionally you should only
+     access the HTMLSAXParseContext instance from the dispatch queue that called your
+     event handler closure.
      
      - Parameter data: The data containing the HTML content.
      - Parameter encoding: The character encoding to interpret the data. If no encoding

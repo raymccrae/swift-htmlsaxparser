@@ -108,7 +108,7 @@ class HTMLParserTests: XCTestCase {
             try parser.parse(string: "<hello<") { (context, event) in
                 switch event {
                 case let .error(message):
-                    print("Error")
+                    print("Error: \(message)")
                 default:
                     break
                 }

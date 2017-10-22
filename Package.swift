@@ -24,8 +24,10 @@ let package = Package(
         .target(
             name: "CHTMLSAXParser",
             dependencies: []),
-//        .testTarget(
-//            name: "HTMLSAXParserTests",
-//            dependencies: ["HTMLSAXParser"]),
+        .testTarget(
+            name: "HTMLSAXParserTests",
+            dependencies: ["HTMLSAXParser"],
+            path: "Tests",
+        ),
     ]
 )

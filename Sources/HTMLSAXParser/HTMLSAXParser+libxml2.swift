@@ -363,11 +363,17 @@ internal extension HTMLSAXParser {
     private static let globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
         // We only want to set this global once ever. Regardless of the number of instances of parsers.
         htmlparser_global_error_sax_func = {context, message in
-            guard let context = context, let message = message else {
+            guard let context = context else {
                 return
             }
 
-            let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            let messageString: String
+            if let message = message {
+                messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            else {
+                messageString = ""
+            }
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .error(message: messageString))
         }
@@ -376,11 +382,17 @@ internal extension HTMLSAXParser {
     private static let globalWarningHandler: HTMLParserWrappedWarningSAXFunc = {
         // We only want to set this global once ever. Regardless of the number of instances of parsers.
         htmlparser_global_warning_sax_func = { context, message in
-            guard let context = context, let message = message else {
+            guard let context = context else {
                 return
             }
 
-            let messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            let messageString: String
+            if let message = message {
+                messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            else {
+                messageString = ""
+            }
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .warning(message: messageString))
         }
