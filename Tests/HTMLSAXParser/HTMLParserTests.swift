@@ -29,7 +29,9 @@ class HTMLParserTests: XCTestCase {
 
     static func loadHTMLDocumentData(named: String) -> Data {
         let docuemntURL = bundle.url(forResource: named, withExtension: "html")!
-        let documentData = try! Data(contentsOf: docuemntURL)
+        guard let documentData = try? Data(contentsOf: docuemntURL) else {
+            fatalError("Test data file \(named).html not found within test bundle")
+        }
         return documentData
     }
 
@@ -38,15 +40,13 @@ class HTMLParserTests: XCTestCase {
         var threwError = false
         do {
             let parser = HTMLSAXParser()
-            try parser.parse(data: data, handler: { (context, event) in
+            try parser.parse(data: data, handler: { (_, _) in
                 XCTFail()
             })
             XCTFail()
-        }
-        catch HTMLSAXParser.Error.emptyDocument {
+        } catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
-        }
-        catch {
+        } catch {
             XCTFail()
         }
 
@@ -58,30 +58,28 @@ class HTMLParserTests: XCTestCase {
         var threwError = false
         do {
             let parser = HTMLSAXParser()
-            try parser.parse(string: string, handler: { (context, event) in
+            try parser.parse(string: string, handler: { (_, _) in
                 XCTFail()
             })
             XCTFail()
-        }
-        catch HTMLSAXParser.Error.emptyDocument {
+        } catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
-        }
-        catch {
+        } catch {
             XCTFail()
         }
 
         XCTAssertTrue(threwError)
     }
-    
+
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
+
         var calledStartElement = false
         var calledCharacters = false
         let parser = HTMLSAXParser()
         do {
-            try parser.parse(string: "<hello>こんにちは</hello>") { (context, event) in
+            try parser.parse(string: "<hello>こんにちは</hello>") { (_, event) in
                 switch event {
                 case let .startElement(name, _):
                     XCTAssertEqual(name, "hello")
@@ -93,19 +91,18 @@ class HTMLParserTests: XCTestCase {
                     break
                 }
             }
-        }
-        catch {
+        } catch {
             XCTFail()
         }
-        
+
         XCTAssertTrue(calledStartElement)
         XCTAssertTrue(calledCharacters)
     }
-    
+
     func testInvalidHTML() {
         let parser = HTMLSAXParser()
         do {
-            try parser.parse(string: "<hello<") { (context, event) in
+            try parser.parse(string: "<hello<") { (_, event) in
                 switch event {
                 case let .error(message):
                     print("Error: \(message)")
@@ -113,16 +110,15 @@ class HTMLParserTests: XCTestCase {
                     break
                 }
             }
-        }
-        catch {
-            
+        } catch {
+
         }
     }
 
     func imageSources(from htmlData: Data) throws -> [String] {
         var sources: [String] = []
         let parser = HTMLSAXParser()
-        try parser.parse(data: htmlData) { context, event in
+        try parser.parse(data: htmlData) { _, event in
             switch event {
             case let .startElement(name, attributes) where name == "img":
             if let source = attributes["src"] {
@@ -136,11 +132,15 @@ class HTMLParserTests: XCTestCase {
     }
 
     func testImageExtraction() {
-        let imageSources = try! self.imageSources(from: HTMLParserTests.testHTMLArticleWithImages)
-        XCTAssertEqual(imageSources, [
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG/640px-01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Brachypelma_smithi_2009_G03.jpg/640px-Brachypelma_smithi_2009_G03.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/d/d7/Panamanian_night_monkey.jpg"])
+        do {
+            let imageSources = try self.imageSources(from: HTMLParserTests.testHTMLArticleWithImages)
+            XCTAssertEqual(imageSources, [
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG/640px-01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG",
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Brachypelma_smithi_2009_G03.jpg/640px-Brachypelma_smithi_2009_G03.jpg",
+                "https://upload.wikimedia.org/wikipedia/commons/d/d7/Panamanian_night_monkey.jpg"])
+        } catch {
+            XCTFail("Error thrown while parsing")
+        }
     }
 
 }

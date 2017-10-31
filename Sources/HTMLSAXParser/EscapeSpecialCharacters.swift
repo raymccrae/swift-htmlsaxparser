@@ -25,7 +25,7 @@ public enum HTMLQuoteCharacter: Character {
     case none = "\0"
     case singleQuote = "'"
     case doubleQuote = "\""
-    
+
     var characterCode: CInt {
         switch self {
         case .none:
@@ -39,7 +39,36 @@ public enum HTMLQuoteCharacter: Character {
 }
 
 public extension Data {
-    
+
+    fileprivate func encodeHTMLEntitiesBytes(_ outputLength: inout Int, _ outputLengthBytes: UnsafeMutablePointer<CInt>, _ inputLengthBytes: UnsafeMutablePointer<CInt>, _ quoteCharacter: HTMLQuoteCharacter, _ inputLength: Int, _ loop: inout Bool, _ bufferGrowthFactor: Double) -> Data? {
+        return self.withUnsafeBytes { (inputBytes: UnsafePointer<UInt8>) -> Data? in
+            let outputBufferCapacity = outputLength
+            let outputBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: outputBufferCapacity)
+            defer {
+                outputBuffer.deallocate(capacity: Int(outputBufferCapacity))
+            }
+            let result = htmlEncodeEntities(outputBuffer, outputLengthBytes, inputBytes, inputLengthBytes, quoteCharacter.characterCode)
+
+            if result == 0 { // zero represents success
+                // Have we consumed the length of the input buffer
+                let consumed = inputLengthBytes.pointee
+                if consumed == inputLength {
+                    loop = false
+                    return Data(bytes: outputBuffer, count: Int(outputLengthBytes.pointee))
+                } else {
+                    // if we have not consumed the full input buffer.
+                    // estimate a new output buffer length
+                    let ratio = Double(consumed) / Double(inputLength)
+                    outputLength = Int( (2.0 - ratio) * Double(outputLength) * bufferGrowthFactor )
+                }
+            } else {
+                loop = false
+            }
+
+            return nil
+        }
+    }
+
     public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> Data? {
         let bufferGrowthFactor = 1.4
         let inputLength = self.count
@@ -51,48 +80,21 @@ public extension Data {
             inputLengthBytes.deallocate(capacity: 1)
             outputLengthBytes.deallocate(capacity: 1)
         }
-        
+
         var loop = true
 
         repeat {
             inputLengthBytes.pointee = CInt(inputLength)
             outputLengthBytes.pointee = CInt(outputLength)
 
-            let outputData = self.withUnsafeBytes { (inputBytes: UnsafePointer<UInt8>) -> Data? in
-                let outputBufferCapacity = outputLength
-                let outputBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: outputBufferCapacity)
-                defer {
-                    outputBuffer.deallocate(capacity: Int(outputBufferCapacity))
-                }
-                let result = htmlEncodeEntities(outputBuffer, outputLengthBytes, inputBytes, inputLengthBytes, quoteCharacter.characterCode)
-
-                if result == 0 { // zero represents success
-                    // Have we consumed the length of the input buffer
-                    let consumed = inputLengthBytes.pointee
-                    if consumed == inputLength {
-                        loop = false
-                        return Data(bytes: outputBuffer, count: Int(outputLengthBytes.pointee))
-                    }
-                    else {
-                        // if we have not consumed the full input buffer.
-                        // estimate a new output buffer length
-                        let ratio = Double(consumed) / Double(inputLength)
-                        outputLength = Int( (2.0 - ratio) * Double(outputLength) * bufferGrowthFactor )
-                    }
-                }
-                else {
-                    loop = false
-                }
-
-                return nil
-            }
+            let outputData = encodeHTMLEntitiesBytes(&outputLength, outputLengthBytes, inputLengthBytes, quoteCharacter, inputLength, &loop, bufferGrowthFactor)
 
             if let outputData = outputData {
                 return outputData
             }
 
         } while loop
-        
+
         return nil
     }
 }

@@ -36,16 +36,15 @@ public protocol HTMLSAXParseContext {
 
 }
 
-
 open class HTMLSAXParser {
-    
+
     public struct ParseOptions: OptionSet {
         public let rawValue: Int
-        
+
         public init(rawValue: Int) {
             self.rawValue = rawValue
         }
-        
+
         public static let recover = ParseOptions(rawValue: Int(HTML_PARSE_RECOVER.rawValue))
         public static let noDefaultDTD = ParseOptions(rawValue: Int(HTML_PARSE_NODEFDTD.rawValue))
         public static let noError = ParseOptions(rawValue: Int(HTML_PARSE_NOERROR.rawValue))
@@ -60,12 +59,12 @@ open class HTMLSAXParser {
         /// Default set of parse options.
         public static let `default`: ParseOptions = [.recover, .noBlanks, .noNetwork, .noImpliedElements, .compactTextNodes]
     }
-    
+
     public struct Location {
         public let line: Int
         public let column: Int
     }
-    
+
     public enum Event {
         /// Event parser found the start of the document.
         case startDocument
@@ -105,16 +104,16 @@ open class HTMLSAXParser {
         case emptyDocument
         case parsingFailure(location: Location, message: String)
     }
-    
+
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
 
     /// The parse options the html parser was initialised with.
     open let parseOptions: ParseOptions
-    
+
     public init(parseOptions: ParseOptions = .`default`) {
         self.parseOptions = parseOptions
     }
-    
+
     /**
      Parse a string containing HTML content, calling the events on the handler
      supplied. Despite the handler being marked as escaping the parse method will
@@ -133,10 +132,10 @@ open class HTMLSAXParser {
         guard let uft8Data = string.data(using: .utf8) else {
             throw Error.stringEncodingConversion
         }
-        
+
         try parse(data: uft8Data, encoding: .utf8, handler: handler)
     }
-    
+
     /**
      Parse a data representation of HTML content, calling the events on the handler
      supplied. The data will be interpreted using the encoding if supplied. If no
@@ -156,13 +155,13 @@ open class HTMLSAXParser {
      */
     open func parse(data: Data, encoding: String.Encoding? = nil, handler: @escaping EventHandler) throws {
         let dataLength = data.count
-        
+
         guard dataLength > 0 else {
             // libxml2 will not parse zero length data
             throw Error.emptyDocument
         }
-        
+
         try _parse(data: data, encoding: encoding, handler: handler)
     }
-    
+
 }

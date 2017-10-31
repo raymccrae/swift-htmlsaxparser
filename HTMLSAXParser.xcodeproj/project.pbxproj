@@ -216,8 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				4D9286B81F3516C3001A16FC /* testdata */,
-				4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */,
 				4DDF8C311F211E2E008C2135 /* Info.plist */,
+				4DDF8C2F1F211E2E008C2135 /* HTMLParserTests.swift */,
 				4D161F401F228123002573EF /* HTMLEncodeEntitiesTests.swift */,
 			);
 			name = Tests;
@@ -316,6 +316,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4DDF8C351F211E2E008C2135 /* Build configuration list for PBXNativeTarget "HTMLSAXParser iOS" */;
 			buildPhases = (
+				4D63D6581F9CB6F6009EC3CB /* SwiftLint */,
 				4DDF8C1C1F211E2D008C2135 /* Sources */,
 				4DDF8C1D1F211E2D008C2135 /* Frameworks */,
 				4DDF8C1E1F211E2D008C2135 /* Headers */,
@@ -441,6 +442,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D63D6581F9CB6F6009EC3CB /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n\techo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4D3D6DA41F3EDEDA00EE40CB /* Sources */ = {

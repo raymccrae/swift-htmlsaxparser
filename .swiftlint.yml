@@ -1,0 +1,39 @@
+included:
+  - Sources
+  - Tests
+excluded:
+
+opt_in_rules:
+  - closure_spacing  # closure should have single space inside each brace
+  - empty_count      # prefer isEmpty over comparing to 0
+  - number_separator # underscore should be used as thousand separator in large decimal numbers
+disabled_rules:
+  - todo             # todo and fixme should be avoided. Use custom script for this  
+  - vertical_parameter_alignment # parameter alignment in functions. Xcode use another alignment logic
+line_length: 120
+function_body_length:
+  - 20
+  - 40
+nesting:
+  type_level:
+    warning: 3
+  statement_level:
+    warning: 10
+type_name:
+  excluded: K
+variable_name:
+  excluded:
+    - id
+custom_rules:
+  open_bracket_blank_line:
+    included: ".*.swift"
+    name: "blank line after open bracket"
+    regex: "{\n[[[:blank:]]\n]*\n"
+    message: "Blank line after open bracket should be removed"
+    severity: warning
+  closed_brackets_blank_line:
+    included: ".*.swift"
+    name: "blank lines between closed brackets"
+    regex: "}\n[[[:blank:]]\n]*\n}"
+    message: "Blank lines between closed brackets should be removed"
+    severity: warning

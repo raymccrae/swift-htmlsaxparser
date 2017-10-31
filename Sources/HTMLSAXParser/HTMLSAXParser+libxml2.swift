@@ -22,17 +22,17 @@ import Foundation
 import CHTMLSAXParser
 
 internal extension HTMLSAXParser {
-    
+
     private static let libxmlSAXHandler: htmlSAXHandler = createSAXHandler()
 
+    // swiftlint:disable:next identifier_name
     func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
         let dataLength = data.count
         var charEncoding: xmlCharEncoding = XML_CHAR_ENCODING_NONE
 
         if let encoding = encoding {
             charEncoding = convert(from: encoding)
-        }
-        else {
+        } else {
             data.withUnsafeBytes { (dataBytes: UnsafePointer<UInt8>) -> Void in
                 charEncoding = xmlDetectCharEncoding(dataBytes, Int32(dataLength))
             }
@@ -41,8 +41,8 @@ internal extension HTMLSAXParser {
         guard charEncoding != XML_CHAR_ENCODING_ERROR else {
             throw Error.unsupportedCharEncoding
         }
-        
-        try data.withUnsafeBytes{ (dataBytes: UnsafePointer<Int8>) -> Void in
+
+        try data.withUnsafeBytes { (dataBytes: UnsafePointer<Int8>) -> Void in
             let handlerContext = HandlerContext(handler: handler)
             let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
             var libxmlHandler = HTMLSAXParser.libxmlSAXHandler
@@ -54,17 +54,18 @@ internal extension HTMLSAXParser {
                 htmlFreeParserCtxt(parserContext)
                 handlerContext.contextPtr = nil
             }
-            
+
             handlerContext.contextPtr = parserContext
             let options = CInt(parseOptions.rawValue)
             htmlCtxtUseOptions(parserContext, options)
-            
+
             let parseResult = htmlParseDocument(parserContext)
             try handleParseResult(parseResult, handlerContext)
 
         }
     }
-    
+
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     func convert(from swiftEncoding: String.Encoding) -> xmlCharEncoding {
         switch swiftEncoding {
         case .utf8:
@@ -111,12 +112,12 @@ internal extension HTMLSAXParser {
             return XML_CHAR_ENCODING_SHIFT_JIS
         case .ascii:
             return XML_CHAR_ENCODING_ASCII
-            
+
         default:
             return XML_CHAR_ENCODING_NONE
         }
     }
-    
+
     /**
      Handle the parse result from the underlying libxml2 htmlParseDocument call. Determines if the parse method
      should throw a parsingFailure error. This will check the result did not end with a fatal error. Other less
@@ -142,8 +143,7 @@ internal extension HTMLSAXParser {
                 let message: String
                 if let messageCString = error.pointee.message {
                     message = String(cString: messageCString).trimmingCharacters(in: .whitespacesAndNewlines)
-                }
-                else {
+                } else {
                     message = ""
                 }
 
@@ -160,11 +160,11 @@ internal extension HTMLSAXParser {
 
         let handler: EventHandler
         var contextPtr: htmlParserCtxtPtr?
-        
+
         init(handler: @escaping EventHandler) {
             self.handler = handler
         }
-        
+
         var location: Location {
             guard let contextPtr = contextPtr else {
                 return Location(line: 0, column: 0)
@@ -211,7 +211,7 @@ internal extension HTMLSAXParser {
             return errorPtr
         }
     }
-    
+
     /**
      Create a htmlSAXHandler instance for the libxml2 html parser. The created htmlSAXHandler struct
      will have the various function pointers set to the relevant Swift closures to process the event
@@ -219,67 +219,66 @@ internal extension HTMLSAXParser {
 
      - Returns: An instance of htmlSAXHandler with the function pointers set.
      */
+    // swiftlint:disable:next function_body_length cyclomatic_complexity
     private static func createSAXHandler() -> htmlSAXHandler {
         var handler = htmlSAXHandler()
-        
+
         handler.startDocument = { (context: UnsafeMutableRawPointer?) in
             guard let context = context else {
                 return
             }
-            
+
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .startDocument)
         }
-        
+
         handler.endDocument = { (context: UnsafeMutableRawPointer?) in
             guard let context = context else {
                 return
             }
-            
+
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .endDocument)
         }
-        
+
         handler.startElement = { (context: UnsafeMutableRawPointer?,
             name: UnsafePointer<UInt8>?,
             attrs: UnsafeMutablePointer<UnsafePointer<UInt8>?>?) in
             guard let context = context, let name = name else {
                 return
             }
-            
+
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             let elementName = String(cString: name)
             var elementAttributes: [String: String] = [:]
-            
+
             if let attrs = attrs {
                 var attrPtr = attrs.advanced(by: 0)
-                
+
                 while true {
                     let attrName = attrPtr.pointee
                     if let attrName = attrName {
                         let attributeName = String(cString: attrName)
                         attrPtr = attrPtr.advanced(by: 1)
-                        
+
                         if let attrValue = attrPtr.pointee {
                             let attributeValue = String(cString: attrValue)
                             elementAttributes[attributeName] = attributeValue
-                        }
-                        else {
+                        } else {
                             // If the attribute does not have a value then use an empty string for value.
                             elementAttributes[attributeName] = ""
                         }
-                    }
-                    else {
+                    } else {
                         break
                     }
                 }
             }
-            
+
             handlerContext.handler(handlerContext,
                                    .startElement(name: elementName,
                                                  attributes: elementAttributes))
         }
-        
+
         handler.endElement = { (context, name) in
             guard let context = context, let name = name else {
                 return
@@ -290,7 +289,7 @@ internal extension HTMLSAXParser {
 
             handlerContext.handler(handlerContext, .endElement(name: elementName))
         }
-        
+
         handler.characters = { (context, characters, length) in
             guard let context = context, let characters = characters else {
                 return
@@ -306,7 +305,7 @@ internal extension HTMLSAXParser {
 
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .characters(text: text))
-            
+
         }
 
         handler.processingInstruction = { (context, target, data) in
@@ -318,8 +317,7 @@ internal extension HTMLSAXParser {
             let dataString: String?
             if let data = data {
                 dataString = String(cString: data)
-            }
-            else {
+            } else {
                 dataString = nil
             }
 
@@ -348,10 +346,10 @@ internal extension HTMLSAXParser {
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
             handlerContext.handler(handlerContext, .cdata(block: dataBlock))
         }
-        
+
         // Set the global error and warning handler functions.
-        let _ = HTMLSAXParser.globalErrorHandler
-        let _ = HTMLSAXParser.globalWarningHandler
+        _ = HTMLSAXParser.globalErrorHandler
+        _ = HTMLSAXParser.globalWarningHandler
         withUnsafeMutablePointer(to: &handler) { (handlerPtr) in
             htmlparser_set_global_error_handler(handlerPtr)
             htmlparser_set_global_warning_handler(handlerPtr)
@@ -370,8 +368,7 @@ internal extension HTMLSAXParser {
             let messageString: String
             if let message = message {
                 messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-            else {
+            } else {
                 messageString = ""
             }
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
@@ -389,8 +386,7 @@ internal extension HTMLSAXParser {
             let messageString: String
             if let message = message {
                 messageString = String(cString: message).trimmingCharacters(in: .whitespacesAndNewlines)
-            }
-            else {
+            } else {
                 messageString = ""
             }
             let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
