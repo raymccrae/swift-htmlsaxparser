@@ -36,6 +36,17 @@ public protocol HTMLSAXParseContext {
 
 }
 
+/**
+ The HTMLSAXParser is a SAX style parser for HTML similar to NSXMLParser, however it uses enums with
+ associated types for the parsing events, rather than a delegate class. It is implemented as a simple
+ light-weight wrapper around HTMLParser found within the libxml2 library.
+
+ Thread-safety: Instances of HTMLSAXParser are immutable and may safely be used by different thread
+ concurrently, including running multiple concurrent parse invocations. Please note however with
+ respect to the callers EventHandler closure, you should not retain references to the HTMLSAXParseContext
+ instance passed to the closure beyond the scope of the call. Additionally you should only access the
+ HTMLSAXParseContext instance from the dispatch queue that called your event handler closure.
+ */
 open class HTMLSAXParser {
 
     public struct ParseOptions: OptionSet {
@@ -102,11 +113,22 @@ open class HTMLSAXParser {
         case error(message: String)
     }
 
+    /// An Error enum representing all possible errors that may be thrown by the parser.
     public enum Error: Swift.Error {
+
+        /// An unknown error occurred.
         case unknown
+
+        /// The character encoding given is not supported by the parser.
         case unsupportedCharEncoding
+
+        /// An error occurred converting the given string to UTF-8
         case stringEncodingConversion
+
+        /// The parser encountered an empty document
         case emptyDocument
+
+        /// An error occurred during the parsing process.
         case parsingFailure(location: Location, message: String)
     }
 
@@ -115,6 +137,16 @@ open class HTMLSAXParser {
     /// The parse options the html parser was initialised with.
     open let parseOptions: ParseOptions
 
+    /**
+     Initialize an instance of HTMLSAXParser with the given set of options. If no
+     options are specified a default set of options will be used. For more details
+     on the default options see HTMLSAXParser.ParseOptions.`default`. Instances
+     of HTMLSAXParser are immutable and the options may not be changed on an
+     existing instance. If you require a difference set of options then you will
+     be required to create a new instance.
+
+     - Parameter parseOptions: An option set specifying options for parsing.
+     */
     public init(parseOptions: ParseOptions = .`default`) {
         self.parseOptions = parseOptions
     }
