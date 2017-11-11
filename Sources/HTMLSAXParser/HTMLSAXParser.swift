@@ -135,7 +135,7 @@ open class HTMLSAXParser {
     public typealias EventHandler = (HTMLSAXParseContext, Event) -> Void
 
     /// The parse options the html parser was initialised with.
-    open let parseOptions: ParseOptions
+    public let parseOptions: ParseOptions
 
     /**
      Initialize an instance of HTMLSAXParser with the given set of options. If no
