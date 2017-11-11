@@ -115,6 +115,47 @@ class HTMLParserTests: XCTestCase {
         }
     }
 
+    func testHTMLAttributes() {
+        let parser = HTMLSAXParser()
+        var startElementCount = 0, endElementCount = 0, startDocCount = 0, endDocCount = 0
+
+        do {
+            let html = "<p id=\"123\" class=\"paragraph\" style=\"background-color: red\" hidden>"
+            try parser.parse(string: html) { (_, event) in
+                switch event {
+                case let .startElement(name, attributes):
+                    startElementCount += 1
+                    XCTAssertEqual(name, "p")
+                    XCTAssertEqual(attributes["id"], "123")
+                    XCTAssertEqual(attributes["class"], "paragraph")
+                    XCTAssertEqual(attributes["style"], "background-color: red")
+                    XCTAssertEqual(attributes["hidden"], "")
+                    XCTAssertEqual(attributes.count, 4)
+
+                case let .endElement(name):
+                    endElementCount += 1
+                    XCTAssertEqual(name, "p")
+
+                case .startDocument:
+                    startDocCount += 1
+
+                case .endDocument:
+                    endDocCount += 1
+
+                default:
+                    XCTFail("Unexpected event")
+                }
+            }
+        } catch {
+            XCTFail("Unexpected error thrown")
+        }
+
+        XCTAssertEqual(startDocCount, 1)
+        XCTAssertEqual(endDocCount, 1)
+        XCTAssertEqual(startElementCount, 1)
+        XCTAssertEqual(endElementCount, 1)
+    }
+
     func imageSources(from htmlData: Data) throws -> [String] {
         var sources: [String] = []
         let parser = HTMLSAXParser()

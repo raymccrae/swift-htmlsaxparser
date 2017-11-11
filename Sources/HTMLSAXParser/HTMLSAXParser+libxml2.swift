@@ -273,6 +273,7 @@ internal extension HTMLSAXParser {
                             // If the attribute does not have a value then use an empty string for value.
                             elementAttributes[attributeName] = ""
                         }
+                        attrPtr = attrPtr.advanced(by: 1)
                     } else {
                         break
                     }
