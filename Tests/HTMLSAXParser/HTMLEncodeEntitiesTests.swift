@@ -23,17 +23,32 @@ import XCTest
 
 class HTMLEncodeEntitiesTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testStringEncodeHTMLEntities() {
+        XCTAssertEqual("".encodeHTMLEntities(), "")
+        XCTAssertEqual("A".encodeHTMLEntities(), "A")
+        XCTAssertEqual("&".encodeHTMLEntities(), "&amp;")
+        XCTAssertEqual("<".encodeHTMLEntities(), "&lt;")
+        XCTAssertEqual(">".encodeHTMLEntities(), "&gt;")
+        XCTAssertEqual("€".encodeHTMLEntities(), "&euro;")
+
+        XCTAssertEqual("\"".encodeHTMLEntities(), "&quot;")
+        XCTAssertEqual("\"".encodeHTMLEntities(quoteCharacter: .none), "\"")
+        XCTAssertEqual("\"".encodeHTMLEntities(quoteCharacter: .singleQuote), "\"")
+        XCTAssertEqual("\"".encodeHTMLEntities(quoteCharacter: .doubleQuote), "&quot;")
+
+        XCTAssertEqual("'".encodeHTMLEntities(), "'")
+        XCTAssertEqual("'".encodeHTMLEntities(quoteCharacter: .none), "'")
+        XCTAssertEqual("'".encodeHTMLEntities(quoteCharacter: .singleQuote), "&apos;")
+        XCTAssertEqual("'".encodeHTMLEntities(quoteCharacter: .doubleQuote), "'")
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        if let value = "Dogs <<<<<<<<<< Cats".encodeHTMLEntities() {
-            print(value)
+    func testEmptyDataEncodeHTMLEntities() {
+        let emptyData = Data()
+        guard let result = emptyData.encodeHTMLEntities() else {
+            XCTFail("encodeHTMLEntities should not return nil")
+            return
         }
+        XCTAssert(result.isEmpty, "Resulting Data object should have zero length")
     }
 
 }
