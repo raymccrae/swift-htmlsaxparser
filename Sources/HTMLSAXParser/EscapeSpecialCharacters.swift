@@ -69,7 +69,12 @@ public extension Data {
                 } else {
                     // if we have not consumed the full input buffer.
                     // estimate a new output buffer length
-                    let ratio = Double(consumed) / Double(inputLength)
+                    let ratio: Double
+                    if inputLength == 0 {
+                        ratio = 0.0
+                    } else {
+                        ratio = Double(consumed) / Double(inputLength)
+                    }
                     outputLength = Int( (2.0 - ratio) * Double(outputLength) * bufferGrowthFactor )
                 }
             } else {
