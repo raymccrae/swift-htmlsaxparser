@@ -10,10 +10,13 @@ opt_in_rules:
 disabled_rules:
   - todo             # todo and fixme should be avoided. Use custom script for this  
   - vertical_parameter_alignment # parameter alignment in functions. Xcode use another alignment logic
+file_length:
+  warning: 600
+  error: 1000
 line_length: 120
 function_body_length:
-  - 20
-  - 40
+  - 30
+  - 50
 nesting:
   type_level:
     warning: 3

@@ -40,14 +40,25 @@ public enum HTMLQuoteCharacter: Character {
 
 public extension Data {
 
-    fileprivate func encodeHTMLEntitiesBytes(_ outputLength: inout Int, _ outputLengthBytes: UnsafeMutablePointer<CInt>, _ inputLengthBytes: UnsafeMutablePointer<CInt>, _ quoteCharacter: HTMLQuoteCharacter, _ inputLength: Int, _ loop: inout Bool, _ bufferGrowthFactor: Double) -> Data? {
+    // swiftlint:disable:next function_parameter_count
+    fileprivate func encodeHTMLEntitiesBytes(_ outputLength: inout Int,
+                                             _ outputLengthBytes: UnsafeMutablePointer<CInt>,
+                                             _ inputLengthBytes: UnsafeMutablePointer<CInt>,
+                                             _ quoteCharacter: HTMLQuoteCharacter,
+                                             _ inputLength: Int,
+                                             _ loop: inout Bool,
+                                             _ bufferGrowthFactor: Double) -> Data? {
         return self.withUnsafeBytes { (inputBytes: UnsafePointer<UInt8>) -> Data? in
             let outputBufferCapacity = outputLength
             let outputBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: outputBufferCapacity)
             defer {
                 outputBuffer.deallocate(capacity: Int(outputBufferCapacity))
             }
-            let result = htmlEncodeEntities(outputBuffer, outputLengthBytes, inputBytes, inputLengthBytes, quoteCharacter.characterCode)
+            let result = htmlEncodeEntities(outputBuffer,
+                                            outputLengthBytes,
+                                            inputBytes,
+                                            inputLengthBytes,
+                                            quoteCharacter.characterCode)
 
             if result == 0 { // zero represents success
                 // Have we consumed the length of the input buffer
@@ -87,7 +98,13 @@ public extension Data {
             inputLengthBytes.pointee = CInt(inputLength)
             outputLengthBytes.pointee = CInt(outputLength)
 
-            let outputData = encodeHTMLEntitiesBytes(&outputLength, outputLengthBytes, inputLengthBytes, quoteCharacter, inputLength, &loop, bufferGrowthFactor)
+            let outputData = encodeHTMLEntitiesBytes(&outputLength,
+                                                     outputLengthBytes,
+                                                     inputLengthBytes,
+                                                     quoteCharacter,
+                                                     inputLength,
+                                                     &loop,
+                                                     bufferGrowthFactor)
 
             if let outputData = outputData {
                 return outputData

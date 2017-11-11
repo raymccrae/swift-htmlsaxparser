@@ -46,7 +46,12 @@ internal extension HTMLSAXParser {
             let handlerContext = HandlerContext(handler: handler)
             let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
             var libxmlHandler = HTMLSAXParser.libxmlSAXHandler
-            guard let parserContext = htmlCreatePushParserCtxt(&libxmlHandler, handlerContextPtr, dataBytes, Int32(dataLength), nil, charEncoding) else {
+            guard let parserContext = htmlCreatePushParserCtxt(&libxmlHandler,
+                                                               handlerContextPtr,
+                                                               dataBytes,
+                                                               Int32(dataLength),
+                                                               nil,
+                                                               charEncoding) else {
                 throw Error.unknown
             }
             defer {

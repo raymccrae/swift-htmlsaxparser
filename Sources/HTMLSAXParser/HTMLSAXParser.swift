@@ -57,7 +57,12 @@ open class HTMLSAXParser {
         public static let ignoreEncodingHint = ParseOptions(rawValue: Int(HTML_PARSE_IGNORE_ENC.rawValue))
 
         /// Default set of parse options.
-        public static let `default`: ParseOptions = [.recover, .noBlanks, .noNetwork, .noImpliedElements, .compactTextNodes]
+        public static let `default`: ParseOptions = [
+            .recover,
+            .noBlanks,
+            .noNetwork,
+            .noImpliedElements,
+            .compactTextNodes]
     }
 
     public struct Location {

@@ -41,31 +41,31 @@ class HTMLParserTests: XCTestCase {
         do {
             let parser = HTMLSAXParser()
             try parser.parse(data: data, handler: { (_, _) in
-                XCTFail()
+                XCTFail("Empty document should not generate any events")
             })
-            XCTFail()
+            XCTFail("Empty document should throw an error")
         } catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
         } catch {
-            XCTFail()
+            XCTFail("Wrong type of error thrown")
         }
 
         XCTAssertTrue(threwError)
     }
 
-    func test_parse_strint_empty() {
+    func test_parse_string_empty() {
         let string = ""
         var threwError = false
         do {
             let parser = HTMLSAXParser()
             try parser.parse(string: string, handler: { (_, _) in
-                XCTFail()
+                XCTFail("Empty document should not generate any events")
             })
-            XCTFail()
+            XCTFail("Empty document should throw an error")
         } catch HTMLSAXParser.Error.emptyDocument {
             threwError = true
         } catch {
-            XCTFail()
+            XCTFail("Wrong type of error thrown")
         }
 
         XCTAssertTrue(threwError)
@@ -92,7 +92,7 @@ class HTMLParserTests: XCTestCase {
                 }
             }
         } catch {
-            XCTFail()
+            XCTFail("Unexpected error thrown")
         }
 
         XCTAssertTrue(calledStartElement)
@@ -134,10 +134,12 @@ class HTMLParserTests: XCTestCase {
     func testImageExtraction() {
         do {
             let imageSources = try self.imageSources(from: HTMLParserTests.testHTMLArticleWithImages)
+            // swiftlint:disable line_length
             XCTAssertEqual(imageSources, [
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG/640px-01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Brachypelma_smithi_2009_G03.jpg/640px-Brachypelma_smithi_2009_G03.jpg",
                 "https://upload.wikimedia.org/wikipedia/commons/d/d7/Panamanian_night_monkey.jpg"])
+            // swiftlint:enable line_length
         } catch {
             XCTFail("Error thrown while parsing")
         }
