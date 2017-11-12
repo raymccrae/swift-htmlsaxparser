@@ -18,6 +18,8 @@
 //  limitations under the License.
 //
 
+// swiftlint:disable line_length function_body_length
+
 import XCTest
 @testable import HTMLSAXParser
 
@@ -175,12 +177,10 @@ class HTMLParserTests: XCTestCase {
     func testImageExtraction() {
         do {
             let imageSources = try self.imageSources(from: HTMLParserTests.testHTMLArticleWithImages)
-            // swiftlint:disable line_length
             XCTAssertEqual(imageSources, [
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG/640px-01-COBRA-SUCURI-3M-WAGNER-MEIER_MG_2458.JPG",
                 "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Brachypelma_smithi_2009_G03.jpg/640px-Brachypelma_smithi_2009_G03.jpg",
                 "https://upload.wikimedia.org/wikipedia/commons/d/d7/Panamanian_night_monkey.jpg"])
-            // swiftlint:enable line_length
         } catch {
             XCTFail("Error thrown while parsing")
         }
