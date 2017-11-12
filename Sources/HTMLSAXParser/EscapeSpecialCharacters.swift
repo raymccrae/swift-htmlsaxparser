@@ -123,9 +123,7 @@ public extension Data {
 
 public extension String {
     public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> String? {
-        guard let utf8Data = self.data(using: .utf8) else {
-            return nil
-        }
+        let utf8Data = Data(self.utf8)
         guard let encoded = utf8Data.encodeHTMLEntities(quoteCharacter: quoteCharacter) else {
             return nil
         }
