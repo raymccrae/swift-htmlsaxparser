@@ -122,19 +122,22 @@ class HTMLParserTests: XCTestCase {
         var startElementCount = 0, endElementCount = 0, startDocCount = 0, endDocCount = 0
 
         do {
-            let html = "<p id=\"123\" class=\"paragraph\" style=\"background-color: red\" hidden>"
+            let html = "<p id=\"123\" CLASS=\"paragraph\" comment=\"P>N\" Style=\"background-color: red;\" hidden>"
             try parser.parse(string: html) { (_, event) in
                 switch event {
                 case let .startElement(name, attributes):
+                    XCTAssertEqual(startDocCount, 1)
                     startElementCount += 1
                     XCTAssertEqual(name, "p")
                     XCTAssertEqual(attributes["id"], "123")
                     XCTAssertEqual(attributes["class"], "paragraph")
-                    XCTAssertEqual(attributes["style"], "background-color: red")
+                    XCTAssertEqual(attributes["comment"], "P>N")
+                    XCTAssertEqual(attributes["style"], "background-color: red;")
                     XCTAssertEqual(attributes["hidden"], "")
-                    XCTAssertEqual(attributes.count, 4)
+                    XCTAssertEqual(attributes.count, 5)
 
                 case let .endElement(name):
+                    XCTAssertEqual(startElementCount, 1)
                     endElementCount += 1
                     XCTAssertEqual(name, "p")
 
@@ -142,6 +145,7 @@ class HTMLParserTests: XCTestCase {
                     startDocCount += 1
 
                 case .endDocument:
+                    XCTAssertEqual(endElementCount, 1)
                     endDocCount += 1
 
                 default:
