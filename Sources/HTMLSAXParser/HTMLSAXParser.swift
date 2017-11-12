@@ -122,9 +122,6 @@ open class HTMLSAXParser {
         /// The character encoding given is not supported by the parser.
         case unsupportedCharEncoding
 
-        /// An error occurred converting the given string to UTF-8
-        case stringEncodingConversion
-
         /// The parser encountered an empty document
         case emptyDocument
 
@@ -166,11 +163,8 @@ open class HTMLSAXParser {
      - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
      */
     open func parse(string: String, handler: @escaping EventHandler) throws {
-        guard let uft8Data = string.data(using: .utf8) else {
-            throw Error.stringEncodingConversion
-        }
-
-        try parse(data: uft8Data, encoding: .utf8, handler: handler)
+        let utf8Data = Data(string.utf8)
+        try parse(data: utf8Data, encoding: .utf8, handler: handler)
     }
 
     /**
