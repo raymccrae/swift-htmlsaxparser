@@ -85,6 +85,14 @@ public extension Data {
         }
     }
 
+    /**
+     Encodes the HTML entities within the receiver. This method interperates the receiver Data
+     instance as UTF-8 encoded string data. The returns the resulting UTF-8 encoded string with
+     the HTML entities encoded or nil if an error occurred.
+
+     - parameter quoteCharacter: The HTML quote character for escaping.
+     - returns: UTF-8 encoded data instance representing the encoded string, or nil if an error occurred.
+     */
     public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> Data? {
         let bufferGrowthFactor = 1.4
         let inputLength = self.count
@@ -122,6 +130,13 @@ public extension Data {
 }
 
 public extension String {
+
+    /**
+     Encodes the HTML entities within the receiver.
+
+     - parameter quoteCharacter: The HTML quote character for escaping.
+     - returns: The encoded string, or nil if an error occurred.
+     */
     public func encodeHTMLEntities(quoteCharacter: HTMLQuoteCharacter = .doubleQuote) -> String? {
         let utf8Data = Data(self.utf8)
         guard let encoded = utf8Data.encodeHTMLEntities(quoteCharacter: quoteCharacter) else {
@@ -129,4 +144,5 @@ public extension String {
         }
         return String(data: encoded, encoding: .utf8)
     }
+
 }
