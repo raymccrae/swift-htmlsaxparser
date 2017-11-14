@@ -51,4 +51,10 @@ class HTMLEncodeEntitiesTests: XCTestCase {
         XCTAssert(result.isEmpty, "Resulting Data object should have zero length")
     }
 
+    func testInvalidCharDataEncodeHTMLEntities() {
+        let invalidData = Data(bytes: [0xff])
+        let result = invalidData.encodeHTMLEntities()
+        XCTAssertEqual(result, nil)
+    }
+
 }
