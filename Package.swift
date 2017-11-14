@@ -27,7 +27,7 @@ let package = Package(
         .testTarget(
             name: "HTMLSAXParserTests",
             dependencies: ["HTMLSAXParser"],
-            path: "Tests",
-        ),
+            path: "Tests"
+        )
     ]
 )
