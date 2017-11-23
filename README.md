@@ -99,4 +99,4 @@ $ swift build -Xcc -I"$(xcrun --show-sdk-path)/usr/include/libxml2"
 * see [LICENSE](https://github.com/raymccrae/swift-htmlsaxparser/blob/master/LICENSE) file
 
 ## Version 
-* Version 0.3
+* Version 0.4
