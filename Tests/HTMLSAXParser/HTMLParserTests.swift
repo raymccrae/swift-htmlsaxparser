@@ -133,7 +133,7 @@ class HTMLParserTests: XCTestCase {
                     XCTAssertEqual(attributes["class"], "paragraph")
                     XCTAssertEqual(attributes["comment"], "P>N")
                     XCTAssertEqual(attributes["style"], "background-color: red;")
-                    XCTAssertEqual(attributes["hidden"], "")
+                    XCTAssertEqual(attributes["hidden"], "hidden")
                     XCTAssertEqual(attributes.count, 5)
 
                 case let .endElement(name):
@@ -160,6 +160,34 @@ class HTMLParserTests: XCTestCase {
         XCTAssertEqual(endDocCount, 1)
         XCTAssertEqual(startElementCount, 1)
         XCTAssertEqual(endElementCount, 1)
+    }
+
+    // Test that should an attribute be repeated then the first (leftmost) value is used and all
+    // further values for that attribute name are ignored.
+    func test_parse_html_duplicate_attributes() {
+        var startElementCount = 0
+        do {
+            let html = "<p id=\"123\" id=\"456\" CLASS=\"paragraph\" hidden class=\"summary\">"
+            let parser = HTMLSAXParser()
+            try parser.parse(string: html) { (_, event) in
+                switch event {
+                case let .startElement(name, attributes):
+                    startElementCount += 1
+                    XCTAssertEqual(name, "p")
+                    XCTAssertEqual(attributes["id"], "123")
+                    XCTAssertEqual(attributes["class"], "paragraph")
+                    XCTAssertEqual(attributes["hidden"], "hidden")
+                    XCTAssertEqual(attributes.count, 3)
+
+                default:
+                    break
+                }
+            }
+        } catch {
+            XCTFail("Unexpected error thrown")
+        }
+
+        XCTAssertEqual(startElementCount, 1)
     }
 
     func imageSources(from htmlData: Data) throws -> [String] {

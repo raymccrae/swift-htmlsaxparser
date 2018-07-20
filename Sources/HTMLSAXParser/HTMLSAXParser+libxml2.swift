@@ -270,8 +270,8 @@ internal extension HTMLSAXParser {
                             let attributeValue = String(cString: attrValue)
                             elementAttributes[attributeName] = attributeValue
                         } else {
-                            // If the attribute does not have a value then use an empty string for value.
-                            elementAttributes[attributeName] = ""
+                            // If the attribute does not have a value then use the attribute name as the value.
+                            elementAttributes[attributeName] = attributeName
                         }
                         attrPtr = attrPtr.advanced(by: 1)
                     } else {
