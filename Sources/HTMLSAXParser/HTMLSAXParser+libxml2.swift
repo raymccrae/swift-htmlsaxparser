@@ -23,8 +23,17 @@ import CHTMLSAXParser
 
 internal extension HTMLSAXParser {
 
+    /// The libxml2 sax handlers. We only need one global instanse as the parsing context will track
+    /// instance specific details.
     private static let libxmlSAXHandler: htmlSAXHandler = createSAXHandler()
 
+    /// The internal parse method that contains the integration with libxml2.
+    ///
+    /// - parameter data: The data containing the HTML content.
+    /// - Parameter encoding: The character encoding to interpret the data. If no encoding
+    /// is given then the parser will attempt to detect the encoding.
+    /// - Parameter handler: The event handler closure that will be called during parsing.
+    /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
     // swiftlint:disable:next identifier_name
     func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
         let dataLength = data.count
@@ -123,17 +132,15 @@ internal extension HTMLSAXParser {
         }
     }
 
-    /**
-     Handle the parse result from the underlying libxml2 htmlParseDocument call. Determines if the parse method
-     should throw a parsingFailure error. This will check the result did not end with a fatal error. Other less
-     serious error levels will be considered a success.
-
-     One success the method returns, otherwise the method throws an `HTMLParser.Error`
-
-     - Parameter parseResult: The result from the libxml2 htmlParseDocument call.
-     - Parameter handlerContext: The handler context.
-     - Throws: `HTMLParser.Error` if the parsing ended with a fatel error.
-     */
+    /// Handle the parse result from the underlying libxml2 htmlParseDocument call. Determines if the parse method
+    /// should throw a parsingFailure error. This will check the result did not end with a fatal error. Other less
+    /// serious error levels will be considered a success.
+    ///
+    /// One success the method returns, otherwise the method throws an `HTMLParser.Error`
+    ///
+    /// - Parameter parseResult: The result from the libxml2 htmlParseDocument call.
+    /// - Parameter handlerContext: The handler context.
+    /// - Throws: `HTMLParser.Error` if the parsing ended with a fatel error.
     private func handleParseResult(_ parseResult: Int32, _ handlerContext: HTMLSAXParser.HandlerContext) throws {
         // htmlParseDocument returns zero for success, therefore if non-zero we need to check the last error.
         if parseResult != 0 {
@@ -161,15 +168,21 @@ internal extension HTMLSAXParser {
         }
     }
 
+    /// The Handler Context is an object representing the pasing context that is given as a parameter to the
+    /// event handler closure. For the most part it is a wrapper around the libxml2 parser context (htmlParserCtxtPtr).
     private class HandlerContext: HTMLSAXParseContext {
 
+        /// The event handler closure
         let handler: EventHandler
+
+        /// The libxml2 parser context
         var contextPtr: htmlParserCtxtPtr?
 
         init(handler: @escaping EventHandler) {
             self.handler = handler
         }
 
+        /// Get the current parsing location. If not currently parsing line and column will be zero.
         var location: Location {
             guard let contextPtr = contextPtr else {
                 return Location(line: 0, column: 0)
@@ -180,6 +193,7 @@ internal extension HTMLSAXParser {
             return loc
         }
 
+        /// Get the System ID if available.
         var systemId: String? {
             guard let contextPtr = contextPtr else {
                 return nil
@@ -190,6 +204,7 @@ internal extension HTMLSAXParser {
             return String(cString: systemId)
         }
 
+        /// Get the Public ID if available.
         var publicId: String? {
             guard let contextPtr = contextPtr else {
                 return nil
@@ -201,6 +216,11 @@ internal extension HTMLSAXParser {
 
         }
 
+        /// Aborts the parsing task. The no further calls to the event handler closure will be may
+        /// for the currently parsing task.
+        ///
+        /// This method is intended to be called from the event handler closure only. This method should
+        /// only be called from the dispatch queue invoking the event handler.
         func abortParsing() {
             guard let contextPtr = contextPtr else {
                 return
@@ -209,11 +229,9 @@ internal extension HTMLSAXParser {
             xmlStopParser(contextPtr)
         }
 
-        /**
-         Get the last libxml2 parsing error to occur if available.
-
-         - returns: A pointer to the last parsing error or nil if not available.
-         */
+        /// Get the last libxml2 parsing error to occur if available.
+        ///
+        /// - returns: A pointer to the last parsing error or nil if not available.
         fileprivate func lastError() -> xmlErrorPtr? {
             guard let contextPtr = contextPtr, let errorPtr = xmlCtxtGetLastError(contextPtr) else {
                 return nil
@@ -226,13 +244,11 @@ internal extension HTMLSAXParser {
         }
     }
 
-    /**
-     Create a htmlSAXHandler instance for the libxml2 html parser. The created htmlSAXHandler struct
-     will have the various function pointers set to the relevant Swift closures to process the event
-     and forward the event to the EventHandler closure within the parsing context.
-
-     - Returns: An instance of htmlSAXHandler with the function pointers set.
-     */
+    /// Create a htmlSAXHandler instance for the libxml2 html parser. The created htmlSAXHandler struct
+    /// will have the various function pointers set to the relevant Swift closures to process the event
+    /// and forward the event to the EventHandler closure within the parsing context.
+    ///
+    /// - Returns: An instance of htmlSAXHandler with the function pointers set.
     // swiftlint:disable:next function_body_length cyclomatic_complexity
     private static func createSAXHandler() -> htmlSAXHandler {
         var handler = htmlSAXHandler()
@@ -373,6 +389,7 @@ internal extension HTMLSAXParser {
         return handler
     }
 
+    /// The global error handler for all HTML parsing tasks.
     private static let globalErrorHandler: HTMLParserWrappedErrorSAXFunc = {
         // We only want to set this global once ever. Regardless of the number of instances of parsers.
         htmlparser_global_error_sax_func = {context, message in

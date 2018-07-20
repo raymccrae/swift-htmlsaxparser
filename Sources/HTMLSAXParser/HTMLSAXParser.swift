@@ -28,25 +28,22 @@ public protocol HTMLSAXParseContext {
     var systemId: String? { get }
     var publicId: String? { get }
 
-    /**
-     Aborts the current HTML parsings to prevent further calls
-     to the parser event handler.
-     */
+    /// Aborts the current HTML parsings to prevent further calls
+    /// to the parser event handler.
     func abortParsing()
 
 }
 
-/**
- The HTMLSAXParser is a SAX style parser for HTML similar to NSXMLParser, however it uses enums with
- associated types for the parsing events, rather than a delegate class. It is implemented as a simple
- light-weight wrapper around HTMLParser found within the libxml2 library.
 
- Thread-safety: Instances of HTMLSAXParser are immutable and may safely be used by different thread
- concurrently, including running multiple concurrent parse invocations. Please note however with
- respect to the callers EventHandler closure, you should not retain references to the HTMLSAXParseContext
- instance passed to the closure beyond the scope of the call. Additionally you should only access the
- HTMLSAXParseContext instance from the dispatch queue that called your event handler closure.
- */
+/// The HTMLSAXParser is a SAX style parser for HTML similar to NSXMLParser, however it uses enums with
+/// associated types for the parsing events, rather than a delegate class. It is implemented as a simple
+/// light-weight wrapper around HTMLParser found within the libxml2 library.
+///
+/// Thread-safety: Instances of HTMLSAXParser are immutable and may safely be used by different thread
+/// concurrently, including running multiple concurrent parse invocations. Please note however with
+/// respect to the callers EventHandler closure, you should not retain references to the HTMLSAXParseContext
+/// instance passed to the closure beyond the scope of the call. Additionally you should only access the
+/// HTMLSAXParseContext instance from the dispatch queue that called your event handler closure.
 open class HTMLSAXParser {
 
     public struct ParseOptions: OptionSet {
@@ -134,56 +131,50 @@ open class HTMLSAXParser {
     /// The parse options the html parser was initialised with.
     public let parseOptions: ParseOptions
 
-    /**
-     Initialize an instance of HTMLSAXParser with the given set of options. If no
-     options are specified a default set of options will be used. For more details
-     on the default options see HTMLSAXParser.ParseOptions.`default`. Instances
-     of HTMLSAXParser are immutable and the options may not be changed on an
-     existing instance. If you require a difference set of options then you will
-     be required to create a new instance.
-
-     - Parameter parseOptions: An option set specifying options for parsing.
-     */
+    /// Initialize an instance of HTMLSAXParser with the given set of options. If no
+    /// options are specified a default set of options will be used. For more details
+    /// on the default options see HTMLSAXParser.ParseOptions.`default`. Instances
+    /// of HTMLSAXParser are immutable and the options may not be changed on an
+    /// existing instance. If you require a difference set of options then you will
+    /// be required to create a new instance.
+    ///
+    /// - Parameter parseOptions: An option set specifying options for parsing.
     public init(parseOptions: ParseOptions = .`default`) {
         self.parseOptions = parseOptions
     }
 
-    /**
-     Parse a string containing HTML content, calling the events on the handler
-     supplied. Despite the handler being marked as escaping the parse method will
-     operate synchronously.
-     
-     Note that your handler should not retain references to the HTMLSAXParseContext
-     instance passed to it beyond the scope of the call. Additionally you should only
-     access the HTMLSAXParseContext instance from the dispatch queue that called your
-     event handler closure.
-     
-     - Parameter string: The string containing the HTML content.
-     - Parameter handler: The event handler closure that will be called during parsing.
-     - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
-     */
+    /// Parse a string containing HTML content, calling the events on the handler
+    /// supplied. Despite the handler being marked as escaping the parse method will
+    /// operate synchronously.
+    ///
+    /// Note that your handler should not retain references to the HTMLSAXParseContext
+    /// instance passed to it beyond the scope of the call. Additionally you should only
+    /// access the HTMLSAXParseContext instance from the dispatch queue that called your
+    /// event handler closure.
+    ///
+    /// - Parameter string: The string containing the HTML content.
+    /// - Parameter handler: The event handler closure that will be called during parsing.
+    /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
     open func parse(string: String, handler: @escaping EventHandler) throws {
         let utf8Data = Data(string.utf8)
         try parse(data: utf8Data, encoding: .utf8, handler: handler)
     }
 
-    /**
-     Parse a data representation of HTML content, calling the events on the handler
-     supplied. The data will be interpreted using the encoding if supplied. If no
-     encoding is given then the parser will attempt to detect the encoding. Despite
-     the handler being marked as escaping the parse method will operate synchronously.
-     
-     Note that your handler should not retain references to the HTMLSAXParseContext
-     instance passed to it beyond the scope of the call. Additionally you should only
-     access the HTMLSAXParseContext instance from the dispatch queue that called your
-     event handler closure.
-     
-     - Parameter data: The data containing the HTML content.
-     - Parameter encoding: The character encoding to interpret the data. If no encoding
-     is given then the parser will attempt to detect the encoding.
-     - Parameter handler: The event handler closure that will be called during parsing.
-     - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
-     */
+    /// Parse a data representation of HTML content, calling the events on the handler
+    /// supplied. The data will be interpreted using the encoding if supplied. If no
+    /// encoding is given then the parser will attempt to detect the encoding. Despite
+    /// the handler being marked as escaping the parse method will operate synchronously.
+    ///
+    /// Note that your handler should not retain references to the HTMLSAXParseContext
+    /// instance passed to it beyond the scope of the call. Additionally you should only
+    /// access the HTMLSAXParseContext instance from the dispatch queue that called your
+    /// event handler closure.
+    ///
+    /// - Parameter data: The data containing the HTML content.
+    /// - Parameter encoding: The character encoding to interpret the data. If no encoding
+    /// is given then the parser will attempt to detect the encoding.
+    /// - Parameter handler: The event handler closure that will be called during parsing.
+    /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
     open func parse(data: Data, encoding: String.Encoding? = nil, handler: @escaping EventHandler) throws {
         let dataLength = data.count
 
