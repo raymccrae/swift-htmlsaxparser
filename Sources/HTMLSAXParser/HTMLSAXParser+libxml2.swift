@@ -209,11 +209,20 @@ internal extension HTMLSAXParser {
             xmlStopParser(contextPtr)
         }
 
+        /**
+         Get the last libxml2 parsing error to occur if available.
+
+         - returns: A pointer to the last parsing error or nil if not available.
+         */
         fileprivate func lastError() -> xmlErrorPtr? {
             guard let contextPtr = contextPtr, let errorPtr = xmlCtxtGetLastError(contextPtr) else {
                 return nil
             }
             return errorPtr
+        }
+
+        fileprivate static func fromUnsafeRawPointer(_ context: UnsafeRawPointer) -> HandlerContext {
+            return Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
         }
     }
 
@@ -233,7 +242,7 @@ internal extension HTMLSAXParser {
                 return
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .startDocument)
         }
 
@@ -242,7 +251,7 @@ internal extension HTMLSAXParser {
                 return
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .endDocument)
         }
 
@@ -253,7 +262,7 @@ internal extension HTMLSAXParser {
                 return
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             let elementName = String(cString: name)
             var elementAttributes: [String: String] = [:]
 
@@ -290,7 +299,7 @@ internal extension HTMLSAXParser {
                 return
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             let elementName = String(cString: name)
 
             handlerContext.handler(handlerContext, .endElement(name: elementName))
@@ -309,7 +318,7 @@ internal extension HTMLSAXParser {
                 return
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .characters(text: text))
 
         }
@@ -327,7 +336,7 @@ internal extension HTMLSAXParser {
                 dataString = nil
             }
 
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext,
                                    .processingInstruction(target: targetString,
                                                           data: dataString))
@@ -339,7 +348,7 @@ internal extension HTMLSAXParser {
             }
 
             let commentString = String(cString: comment)
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .comment(text: commentString))
         }
 
@@ -349,7 +358,7 @@ internal extension HTMLSAXParser {
             }
 
             let dataBlock = Data(bytes: block, count: Int(length))
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .cdata(block: dataBlock))
         }
 
@@ -377,7 +386,7 @@ internal extension HTMLSAXParser {
             } else {
                 messageString = ""
             }
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .error(message: messageString))
         }
         return htmlparser_global_error_sax_func
@@ -395,7 +404,7 @@ internal extension HTMLSAXParser {
             } else {
                 messageString = ""
             }
-            let handlerContext: HandlerContext = Unmanaged<HandlerContext>.fromOpaque(context).takeUnretainedValue()
+            let handlerContext = HandlerContext.fromUnsafeRawPointer(context)
             handlerContext.handler(handlerContext, .warning(message: messageString))
         }
         return htmlparser_global_warning_sax_func
