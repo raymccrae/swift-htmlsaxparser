@@ -34,7 +34,6 @@ public protocol HTMLSAXParseContext {
 
 }
 
-
 /// The HTMLSAXParser is a SAX style parser for HTML similar to NSXMLParser, however it uses enums with
 /// associated types for the parsing events, rather than a delegate class. It is implemented as a simple
 /// light-weight wrapper around HTMLParser found within the libxml2 library.
