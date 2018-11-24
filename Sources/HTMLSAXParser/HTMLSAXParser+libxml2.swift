@@ -35,7 +35,7 @@ internal extension HTMLSAXParser {
     /// - Parameter handler: The event handler closure that will be called during parsing.
     /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
     // swiftlint:disable:next identifier_name
-    func _parse(data: Data, encoding: String.Encoding?, handler: @escaping EventHandler) throws {
+    func _parse(data: Data, encoding: String.Encoding?, handler: EventHandler) throws {
         let dataLength = data.count
         var charEncoding: xmlCharEncoding = XML_CHAR_ENCODING_NONE
 
@@ -51,31 +51,32 @@ internal extension HTMLSAXParser {
             throw Error.unsupportedCharEncoding
         }
 
-        try data.withUnsafeBytes { (dataBytes: UnsafePointer<Int8>) -> Void in
-            let handlerContext = HandlerContext(handler: handler)
-            let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
-            var libxmlHandler = HTMLSAXParser.libxmlSAXHandler
-            guard let parserContext = htmlCreatePushParserCtxt(&libxmlHandler,
-                                                               handlerContextPtr,
-                                                               dataBytes,
-                                                               Int32(dataLength),
-                                                               nil,
-                                                               charEncoding) else {
-                throw Error.unknown
+        try withoutActuallyEscaping(handler) { (escapingHandler) -> Void in
+            try data.withUnsafeBytes { (dataBytes: UnsafePointer<Int8>) -> Void in
+                let handlerContext = HandlerContext(handler: escapingHandler)
+                let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
+                var libxmlHandler = HTMLSAXParser.libxmlSAXHandler
+                guard let parserContext = htmlCreatePushParserCtxt(&libxmlHandler,
+                                                                   handlerContextPtr,
+                                                                   dataBytes,
+                                                                   Int32(dataLength),
+                                                                   nil,
+                                                                   charEncoding) else {
+                                                                    throw Error.unknown
+                }
+                defer {
+                    // Free the parser context when we exit the scope.
+                    htmlFreeParserCtxt(parserContext)
+                    handlerContext.contextPtr = nil
+                }
+
+                handlerContext.contextPtr = parserContext
+                let options = CInt(self.parseOptions.rawValue)
+                htmlCtxtUseOptions(parserContext, options)
+
+                let parseResult = htmlParseDocument(parserContext)
+                try self.handleParseResult(parseResult, handlerContext)
             }
-            defer {
-                // Free the parser context when we exit the scope.
-                htmlFreeParserCtxt(parserContext)
-                handlerContext.contextPtr = nil
-            }
-
-            handlerContext.contextPtr = parserContext
-            let options = CInt(parseOptions.rawValue)
-            htmlCtxtUseOptions(parserContext, options)
-
-            let parseResult = htmlParseDocument(parserContext)
-            try handleParseResult(parseResult, handlerContext)
-
         }
     }
 

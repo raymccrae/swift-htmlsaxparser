@@ -144,8 +144,7 @@ open class HTMLSAXParser {
     }
 
     /// Parse a string containing HTML content, calling the events on the handler
-    /// supplied. Despite the handler being marked as escaping the parse method will
-    /// operate synchronously.
+    /// supplied.
     ///
     /// Note that your handler should not retain references to the HTMLSAXParseContext
     /// instance passed to it beyond the scope of the call. Additionally you should only
@@ -155,15 +154,14 @@ open class HTMLSAXParser {
     /// - Parameter string: The string containing the HTML content.
     /// - Parameter handler: The event handler closure that will be called during parsing.
     /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
-    open func parse(string: String, handler: @escaping EventHandler) throws {
+    open func parse(string: String, handler: EventHandler) throws {
         let utf8Data = Data(string.utf8)
         try parse(data: utf8Data, encoding: .utf8, handler: handler)
     }
 
     /// Parse a data representation of HTML content, calling the events on the handler
     /// supplied. The data will be interpreted using the encoding if supplied. If no
-    /// encoding is given then the parser will attempt to detect the encoding. Despite
-    /// the handler being marked as escaping the parse method will operate synchronously.
+    /// encoding is given then the parser will attempt to detect the encoding.
     ///
     /// Note that your handler should not retain references to the HTMLSAXParseContext
     /// instance passed to it beyond the scope of the call. Additionally you should only
@@ -175,7 +173,7 @@ open class HTMLSAXParser {
     /// is given then the parser will attempt to detect the encoding.
     /// - Parameter handler: The event handler closure that will be called during parsing.
     /// - Throws: `HTMLParser.Error` if a fatal error occured during parsing.
-    open func parse(data: Data, encoding: String.Encoding? = nil, handler: @escaping EventHandler) throws {
+    open func parse(data: Data, encoding: String.Encoding? = nil, handler: EventHandler) throws {
         let dataLength = data.count
 
         guard dataLength > 0 else {
