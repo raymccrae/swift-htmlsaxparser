@@ -52,7 +52,7 @@ public extension Data {
             let outputBufferCapacity = outputLength
             let outputBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: outputBufferCapacity)
             defer {
-                outputBuffer.deallocate(capacity: Int(outputBufferCapacity))
+                outputBuffer.deallocate()
             }
             let result = htmlEncodeEntities(outputBuffer,
                                             outputLengthBytes,
@@ -99,8 +99,8 @@ public extension Data {
         var inputLengthBytes = UnsafeMutablePointer<CInt>.allocate(capacity: 1)
         var outputLengthBytes = UnsafeMutablePointer<CInt>.allocate(capacity: 1)
         defer {
-            inputLengthBytes.deallocate(capacity: 1)
-            outputLengthBytes.deallocate(capacity: 1)
+            inputLengthBytes.deallocate()
+            outputLengthBytes.deallocate()
         }
 
         var loop = true
