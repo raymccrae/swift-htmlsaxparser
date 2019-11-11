@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -20,10 +20,16 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "HTMLSAXParser",
-            dependencies: ["CHTMLSAXParser"]),
+            dependencies: ["CHTMLSAXParser"],
+            swiftSettings:[.unsafeFlags(["-I$SDKROOT/usr/include/libxml2"])],
+            linkerSettings: [.linkedLibrary("xml2")]
+        ),
         .target(
             name: "CHTMLSAXParser",
-            dependencies: []),
+            dependencies: [],
+            cSettings: [.unsafeFlags(["-I$SDKROOT/usr/include/libxml2"])],
+            linkerSettings: [.linkedLibrary("xml2")]
+        ),
         .testTarget(
             name: "HTMLSAXParserTests",
             dependencies: ["HTMLSAXParser"],

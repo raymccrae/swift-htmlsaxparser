@@ -52,7 +52,7 @@ class HTMLEncodeEntitiesTests: XCTestCase {
     }
 
     func testInvalidCharDataEncodeHTMLEntities() {
-        let invalidData = Data(bytes: [0xff])
+        let invalidData = Data([0xff])
         let result = invalidData.encodeHTMLEntities()
         XCTAssertEqual(result, nil)
     }
