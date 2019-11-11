@@ -42,7 +42,8 @@ internal extension HTMLSAXParser {
         if let encoding = encoding {
             charEncoding = convert(from: encoding)
         } else {
-            data.withUnsafeBytes { (dataBytes: UnsafePointer<UInt8>) -> Void in
+            data.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) -> Void in
+                let dataBytes = buffer.baseAddress?.assumingMemoryBound(to: UInt8.self)
                 charEncoding = xmlDetectCharEncoding(dataBytes, Int32(dataLength))
             }
         }
@@ -52,7 +53,8 @@ internal extension HTMLSAXParser {
         }
 
         try withoutActuallyEscaping(handler) { (escapingHandler) -> Void in
-            try data.withUnsafeBytes { (dataBytes: UnsafePointer<Int8>) -> Void in
+            try data.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) -> Void in
+                let dataBytes = buffer.baseAddress?.assumingMemoryBound(to: Int8.self)
                 let handlerContext = HandlerContext(handler: escapingHandler)
                 let handlerContextPtr = Unmanaged<HandlerContext>.passUnretained(handlerContext).toOpaque()
                 var libxmlHandler = HTMLSAXParser.libxmlSAXHandler

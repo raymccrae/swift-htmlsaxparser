@@ -38,7 +38,7 @@ public enum HTMLQuoteCharacter: Character {
     }
 }
 
-public extension Data {
+extension Data {
 
     // swiftlint:disable:next function_parameter_count
     fileprivate func encodeHTMLEntitiesBytes(_ outputLength: inout Int,
@@ -48,7 +48,8 @@ public extension Data {
                                              _ inputLength: Int,
                                              _ loop: inout Bool,
                                              _ bufferGrowthFactor: Double) -> Data? {
-        return self.withUnsafeBytes { (inputBytes: UnsafePointer<UInt8>) -> Data? in
+        return self.withUnsafeBytes { (buffer: UnsafeRawBufferPointer) -> Data? in
+            let inputBytes = buffer.baseAddress?.assumingMemoryBound(to: UInt8.self)
             let outputBufferCapacity = outputLength
             let outputBuffer = UnsafeMutablePointer<UInt8>.allocate(capacity: outputBufferCapacity)
             defer {
@@ -127,7 +128,7 @@ public extension Data {
     }
 }
 
-public extension String {
+extension String {
 
     /// Encodes the HTML entities within the receiver.
     ///
